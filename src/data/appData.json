@@ -1,0 +1,83 @@
+{
+  "title_en": "Himaya",
+  "title_ar": "حماية",
+  "subtitle_en": "A Visual Awareness Quiz on Protecting People of Determination",
+  "subtitle_ar": "اختبار توعوي مصور عن حماية أصحاب الهمم",
+  "media": {
+    "background": "/videos/background.mp4",
+    "intro": "/videos/intro.mp4",
+    "introAlternate": "/images/intro-alternate.png",
+    "governmentLogo": "/images/government-of-dubai.png",
+    "cdaLogo": "/images/cda-logo.png",
+    "handIcon": "/images/Himaya-icon.png",
+    "bg":"/images/protection/protection_bg.mp4"
+  },
+  "need_protection": {
+    "title_ar": "عند الحاجة إلى الحماية",
+    "title_en": "If You Need Protection",
+    "description_ar": "إذا كان هناك إساءة أو تمييز أو إهمال أو استغلال، تواصل مع القناة الرسمية المناسبة.",
+    "description_en": "If there is abuse, discrimination, neglect, or exploitation, contact the appropriate official channel.",
+    "protection_step": [
+      {
+        "id": 1,
+        "step_title_ar": "انتبه للموقف",
+        "step_title_en": "Recognize the Situation",
+        "step_description_ar": "لا يلزمك إثبات كل التفاصيل هنا",
+        "step_description_en": "You do not need to prove all the details here.",
+        "step_icon": "/images/recognize-situation-icon.png"
+      },
+      {
+        "id": 2,
+        "step_title_ar": "تواصل مع هيئة تنمية المجتمع",
+        "step_title_en": "Contact the Community Development Authority",
+        "step_description_ar": "الخط الساخن لحماية أصحاب الهمم.",
+        "step_description_en": "The hotline for the protection of People of Determination.",
+        "step_icon": "/images/contact-cda-icon.png"
+      },
+      {
+        "id": 3,
+        "step_title_ar": "احصل على الدعم والتقييم",
+        "step_title_en": "Receive Support and Assessment",
+        "step_description_ar": "توضح الهيئة أن البلاغات تتبعها دراسة اجتماعية وزيارات ميدانية لتحديد التدخل المناسب.",
+        "step_description_en": "The Authority explains that reports are followed by a social assessment and field visits to determine the appropriate intervention.",
+        "step_icon": "/images/support-assessment-icon.png"
+      }
+    ]
+  },
+  "results": {
+    "title_ar": "النتائج",
+    "title_en": "The Results",
+    "result_text_ar": "لقد أجبت بشكل صحيح على",
+    "result_text_en": "You have answered correctly on",
+    "correct_answers": 3,
+    "total_questions": 4,
+    "questions_label_ar": "أسئلة",
+    "questions_label_en": "Questions",
+    "out_of_ar": "من أصل",
+    "out_of_en": "Out of",
+    "save_certificate_ar": "احفظ شهادتك",
+    "save_certificate_en": "Save Your Certificate",
+    "certificate_qr_image_ar": "/images/certificate-qr-ar.png",
+    "certificate_qr_image_en": "/images/certificate-qr-en.png",
+    "certificate_image_ar": "/images/CERTIFICATE-AR.jpg",
+    "certificate_image_en": "/images/CERTIFICATE-EN.jpg",
+    "certificate_ar": "تحميل الشهادة",
+    "certificate_en": "Download Certificate"
+  },
+  "hotline": {
+    "hotline_title_ar": "QR الخط الساخن ورمز",
+    "hotline_title_en": "Hotline QR Code",
+    "hotline_subtitle_ar": "الخط الساخن لحماية أصحاب الهمم",
+    "hotline_subtitle_en": "Hotline for Protecting People of Determination",
+    "number": "800988",
+    "url": "https://www.cda.gov.ae/",
+    "hotline_qr_image": "/images/hotline-qr.png",
+    "protection_title_ar": "حماية خصوصية المبلّغ",
+    "protection_title_en": "Protection of the Reporter's Privacy",
+    "protection_text_ar": "تنص المادة ٨ على قنوات رسمية للإبلاغ، وتحمي هوية المبلّغ غير القائم على الرعاية ما لم يوافق خطياً على الإفصاح عنها. هذه الشاشة لا تستقبل بلاغاً ولا تطلب أي بيانات شخصية.",
+    "protection_text_en": "Article 8 provides official channels for reporting and protects the identity of the reporter who is not a caregiver unless they consent in writing to disclose it. This screen does not receive reports or request any personal data.",
+    "home_ar": "الرئيسية",
+    "home_en": "Back to Home",
+    "home_url": "/"
+  }
+}

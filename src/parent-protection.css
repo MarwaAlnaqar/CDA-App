@@ -1,0 +1,305 @@
+/* Parent protection card: Figma layout. Scoped to avoid general quiz changes. */
+.himaya-parent-page { width:100%; max-width:981px; margin:0 auto; text-align:center; }
+.himaya-parent-page .himaya-parent-video { width:395px; max-width:100%; margin:0 auto 50px; display:flex; justify-content:center; }
+.himaya-parent-page .himaya-parent-video .himaya-video-container { width:395px; max-width:100%; height:701px; aspect-ratio:71/126; overflow:hidden; }
+.himaya-parent-page .himaya-parent-video iframe,
+.himaya-parent-page .himaya-parent-video video { display:block; width:100%; height:100%; }
+.himaya-parent-page .himaya-parent-card { box-sizing:border-box; position:relative; width:981px; max-width:100%; min-height:644px; margin:50px auto 0; padding:68px 36px 32px; background:#fff; color:#502600; border-radius:36px; box-shadow:0 12px 18px #0002; text-align:start; }
+.himaya-parent-page .himaya-parent-card-title { position:absolute; top:-25px; left:50%; transform:translateX(-50%); margin:0; padding:12px 30px; max-width:100%; background:#fff; color:#502600; border-radius:28px 28px 0 0; font-size:24px; font-weight:700; text-align:center; white-space:normal; }
+.himaya-parent-page .himaya-parent-rows { display:grid; gap:18px; }
+.himaya-parent-page .himaya-parent-row { display:grid; grid-template-columns:44px minmax(0,1fr) 160px; align-items:center; gap:18px; min-height:66px; transition:opacity .2s ease; }
+.himaya-parent-page .himaya-parent-row.is-future { opacity:.22; }
+.himaya-parent-page .himaya-parent-row-number { display:grid; place-items:center; width:40px; height:40px; border-radius:50%; background:#ff6500; color:#fff; font-size:18px; font-weight:700; }
+.himaya-parent-page .himaya-parent-row.is-future .himaya-parent-row-number { background:#f2a987; }
+.himaya-parent-page .himaya-parent-row-question { color:#502600; font-family:'Source Sans Pro',sans-serif; font-size:22px; font-style:normal; font-weight:400; line-height:27px; text-align:start; }
+.himaya-parent-page .himaya-parent-toggle {     text-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    width: 160px;
+    max-width: 100%;
+    height: 64px;
+    border: 2px solid #B0B579;
+    border-radius: 60px;
+    background: #fff;
+    overflow: hidden;
+    direction: ltr; }
+.himaya-parent-page .himaya-parent-toggle-option { flex:1 1 50%; min-width:0; margin:0; padding:0 6px; border:0; border-radius:0;
+   background:#fff; color:#502600; font-family:'Source Sans Pro',sans-serif; font-size:16px;
+   font-weight:400; cursor:pointer; }
+.himaya-parent-page .himaya-parent-toggle-option + .himaya-parent-toggle-option { border-left:1px solid #B0B579;height:100%; }
+.himaya-parent-page .himaya-parent-toggle-option.is-selected { background:#00A04A; color:#fff; font-weight:700;height:100%; }
+.himaya-parent-page .himaya-parent-toggle-option:first-child.is-selected { border-radius:60px 0 0 60px; }
+.himaya-parent-page .himaya-parent-toggle-option:last-child.is-selected { border-radius:0 60px 60px 0; }
+.himaya-parent-page .himaya-parent-toggle-option:disabled { cursor:default; }
+.himaya-parent-page .himaya-parent-card-footer { max-width:780px; margin:32px auto 0; text-align:center; color:#502600;  line-height:1.4;     font-size: 32px;
+    font-weight: 700; }
+.himaya-parent-page .himaya-parent-results-button { display:flex; align-items:center; justify-content:center; gap:12px; margin:20px auto 0; min-width:235px; }
+.himaya-parent-page .himaya-parent-results-button:disabled { opacity:.55; }
+@media(max-width:800px) {
+ .himaya-parent-page .himaya-parent-card { padding:55px 20px 28px; min-height:0; }
+ .himaya-parent-page .himaya-parent-row { grid-template-columns:34px minmax(0,1fr) 130px; gap:10px; }
+ .himaya-parent-page .himaya-parent-row-number { width:32px; height:32px; font-size:15px; }
+ .himaya-parent-page .himaya-parent-row-question { font-size:17px; line-height:23px; }
+ .himaya-parent-page .himaya-parent-toggle { width:130px; height:40px; }
+}
+@media(max-width:520px) {
+ .himaya-parent-page .himaya-parent-video .himaya-video-container { width:100%; height:auto; aspect-ratio:71/126; }
+ .himaya-parent-page .himaya-parent-card { border-radius:25px; padding:55px 12px 24px; }
+ .himaya-parent-page .himaya-parent-card-title { font-size:32px; font-weight:700; padding:10px 14px; width:max-content; max-width:90%; }
+ .himaya-parent-page .himaya-parent-rows { gap:16px; }
+ .himaya-parent-page .himaya-parent-row { grid-template-columns:30px minmax(0,1fr) 94px; gap:7px; }
+ .himaya-parent-page .himaya-parent-row-number { width:28px; height:28px; font-size:13px; }
+ .himaya-parent-page .himaya-parent-row-question { font-size:14px; line-height:19px; }
+ .himaya-parent-page .himaya-parent-toggle { width:94px; height:34px; }
+ .himaya-parent-page .himaya-parent-toggle-option { font-size:12px; padding:0 2px; }
+ .himaya-parent-page .himaya-parent-card-footer { font-size:16px; }
+}
+
+/* Explicit validation state for parent Yes / No choices */
+.himaya-parent-page .himaya-parent-toggle-option.is-selected.is-correct {
+  background: #00A04A;
+  color: #fff;
+}
+.himaya-parent-page .himaya-parent-toggle-option.is-selected.is-wrong {
+  background: #B53D32;
+  color: #fff;
+}
+
+/* ==========================================
+   ADVOCACY — GENERAL QUIZ
+========================================== */
+
+/* Arabic general question */
+
+.himaya-general-page[dir="rtl"] .question-panel {
+  color: #502600;
+  text-align: right;
+  font-family: "GE SS Two", sans-serif;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 34px;
+}
+
+/* English general question */
+
+.himaya-general-page[dir="ltr"] .question-panel {
+  color: #502600;
+  text-align: left;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 42px;
+}
+
+/* Question image */
+
+.himaya-general-page .himaya-image-container {
+  width: 395px;
+  height: 701px;
+  max-width: 100%;
+  aspect-ratio: 71 / 126;
+  flex-shrink: 0;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 4px 23.2px rgba(0, 0, 0, 0.25);
+  background: transparent;
+}
+
+.himaya-general-page .scenario-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Question video */
+
+.himaya-general-page .himaya-video-container {
+  width: 395px;
+  height: 701px;
+  max-width: 100%;
+  aspect-ratio: 71 / 126;
+  flex-shrink: 0;
+  border-radius: 30px;
+  overflow: hidden;
+  background: lightgray;
+  box-shadow: 0 4px 23.2px rgba(0, 0, 0, 0.25);
+}
+
+.himaya-general-page .himaya-video-container iframe,
+.himaya-general-page .himaya-video-container video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* General answer options — Arabic */
+
+.himaya-general-page[dir="rtl"] .answer-option {
+  color: #000;
+  text-align: right;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: uppercase;
+  padding: 17px 13px;
+  gap: 13px;
+}
+
+/* General answer options — English */
+
+.himaya-general-page[dir="ltr"] .answer-option {
+  color: #000;
+  text-align: left;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 42px;
+  text-transform: uppercase;
+  padding: 17px 13px;
+  gap: 13px;
+}
+
+/* Answer icon spacing */
+
+.himaya-general-page .answer-option {
+  display: flex;
+  align-items: center;
+}
+
+.himaya-general-page .answer-circle {
+  flex-shrink: 0;
+}
+
+/* Correct answer */
+
+.himaya-general-page .answer-option.is-correct {
+  border-radius: 36px;
+  border: 2px solid #00A04A;
+  background: #D9FFEB;
+}
+
+/* Wrong answer */
+
+.himaya-general-page .answer-option.is-wrong {
+  border-radius: 54px;
+  border: 2px solid #EE3D3A;
+  background: #FDDFDF;
+}
+
+/* Explanation card */
+
+.himaya-general-page .explanation {
+  border-radius: 40px;
+  background: #FFF;
+  padding: 25px 35px;
+}
+
+/* Arabic explanation */
+
+.himaya-general-page[dir="rtl"] .explanation {
+  color: #502600;
+  text-align: right;
+  font-family: "GE SS Two", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+}
+
+/* English explanation */
+
+.himaya-general-page[dir="ltr"] .explanation {
+  color: #502600;
+  text-align: left;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+/* Next / View Results button */
+
+.himaya-general-page .next-button {
+  display: flex;
+  width: 359px;
+  max-width: 100%;
+  height: 70px;
+  padding: 8px 30px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  color: #FFF;
+  text-align: center;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+
+@media (max-width: 850px) {
+  .himaya-general-page .himaya-image-container,
+  .himaya-general-page .himaya-video-container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 71 / 126;
+  }
+}
+
+@media (max-width: 600px) {
+  .himaya-general-page[dir] .question-panel {
+    font-size: 22px;
+    line-height: 32px;
+  }
+
+  .himaya-general-page[dir] .answer-option {
+    font-size: 19px;
+    line-height: 1.4;
+  }
+
+  .himaya-general-page .explanation {
+    padding: 20px;
+    border-radius: 25px;
+  }
+
+  .himaya-general-page .next-button {
+    width: 100%;
+    height: 64px;
+    font-size: 21px;
+  }
+}
+ /* Arabic answer text */
+.himaya-general-page[dir="rtl"] .answer-option-text {
+  color: #000;
+  text-align: right;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+/* English answer text */
+.himaya-general-page[dir="ltr"] .answer-option-text {
+  color: #000;
+  text-align: left;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 42px;
+  text-transform: uppercase;
+}

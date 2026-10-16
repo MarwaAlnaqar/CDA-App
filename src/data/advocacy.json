@@ -1,0 +1,74 @@
+
+{
+  "results": {
+    "title_ar": "النتائج",
+    "title_en": "Results",
+    "save_certificate_ar": "احفظ شهادتك",
+    "save_certificate_en": "Save Your Certificate",
+    "certificate_ar": "تحميل الشهادة",
+    "certificate_en": "Download Certificate",
+    "success_message_ar": "لقد أجبت بشكل صحيح على",
+    "success_message_en": "You answered correctly",
+    "out_of_ar": "من أصل",
+    "out_of_en": "out of",
+    "questions_label_ar": "أسئلة",
+    "questions_label_en": "questions",
+    "thank_you_ar": "شكراً لمشاركتك.",
+    "thank_you_en": "Thank you for participating."
+  },
+  "authority_role": {
+    "title_ar": "دور الهيئة :",
+    "title_en": "Role of the Authority",
+    "introduction_ar": "دور هيئة تنمية المجتمع في مناصرة أصحاب الهمم يتمثل في حماية حقوقهم، وإيصال أصواتهم، وإشراكهم في القرارات التي تمس حياتهم، والعمل مع الجهات المعنية لإزالة العوائق وتعزيز وصولهم إلى الخدمات والفرص بما يحقق دمجهم وتمكينهم في المجتمع.",
+    "introduction_en": "The Community Development Authority advocates for People of Determination by protecting their rights, amplifying their voices, involving them in decisions that affect their lives, and working with relevant entities to remove barriers and improve access to services and opportunities.",
+    "points": [
+      {
+        "id": 1,
+        "title_ar": "حماية الحقوق",
+        "title_en": "Protecting Rights",
+        "description_ar": "دعم حقوق أصحاب الهمم وضمان حصولهم عليها.",
+        "description_en": "Supporting the rights of People of Determination and ensuring they can exercise them."
+      },
+      {
+        "id": 2,
+        "title_ar": "إيصال صوتهم",
+        "title_en": "Amplifying Their Voices",
+        "description_ar": "الاستماع لاحتياجاتهم وإشراكهم في القرارات التي تمسهم.",
+        "description_en": "Listening to their needs and involving them in decisions that affect them."
+      },
+      {
+        "id": 3,
+        "title_ar": "إزالة العوائق",
+        "title_en": "Removing Barriers",
+        "description_ar": "معالجة التحديات التي تحد من وصولهم للخدمات والمشاركة.",
+        "description_en": "Addressing barriers that limit access to services and participation."
+      },
+      {
+        "id": 4,
+        "title_ar": "التوعية والمناصرة",
+        "title_en": "Awareness and Advocacy",
+        "description_ar": "نشر الوعي بحقوق أصحاب الهمم وتعزيز الممارسات الدامجة.",
+        "description_en": "Raising awareness of the rights of People of Determination and promoting inclusive practices."
+      },
+      {
+        "id": 5,
+        "title_ar": "التمكين والدمج",
+        "title_en": "Empowerment and Inclusion",
+        "description_ar": "تعزيز مشاركتهم واستقلاليتهم واندماجهم في المجتمع.",
+        "description_en": "Strengthening their participation, independence, and inclusion in society."
+      }
+    ],
+    "impact": {
+      "title_ar": "أثر التوعية والمناصرة | 2023–2025",
+      "title_en": "Awareness and Advocacy Impact | 2023–2025",
+      "description_ar": "أسهمت برامج ومبادرات هيئة تنمية المجتمع خلال الفترة 2023–2025 في الوصول إلى أكثر من 12 ألف مستفيد عبر 322 جلسة توعوية، دعماً للوعي بحقوق أصحاب الهمم واحتياجاتهم وتعزيزاً لثقافة المناصرة والدمج المجتمعي.",
+      "description_en": "Between 2023 and 2025, the Community Development Authority's programs and initiatives reached more than 12,000 beneficiaries through 322 awareness sessions, supporting awareness of the rights and needs of People of Determination and promoting advocacy and community inclusion."
+    },
+    "closing_ar": "المناصرة ليست مجرد معرفة بالحقوق، بل هي ممارسة يومية تقوم على احترام الإنسان، وإيصال صوته، وإزالة العوائق أمام مشاركته.",
+    "closing_en": "Advocacy is more than knowing rights. It is a daily practice of respecting people, amplifying their voices, and removing barriers to their participation."
+  },
+  "navigation": {
+    "home_ar": "الرئيسية",
+    "home_en": "Home"
+  }
+}

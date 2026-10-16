@@ -1,0 +1,108 @@
+
+{
+  "strategic_role": {
+    "title_ar": "الدور الاستراتيجي لهيئة تنمية المجتمع في التمكين",
+    "title_en": "The Strategic Role of the Community Development Authority in Empowerment",
+    "pillars_title_ar": "محاور التمكين وبناء القدرات",
+    "pillars_title_en": "Empowerment and Capacity-Building Pillars",
+    "pillars": [
+      {
+        "id": 1,
+        "title_ar": "التدريب والتأهيل المهني",
+        "title_en": "Vocational Training and Rehabilitation",
+        "description_ar": "تطوير قدرات ومهارات أصحاب الهمم بما يتناسب مع احتياجاتهم.",
+        "description_en": "Developing the abilities and skills of People of Determination according to their needs."
+      },
+      {
+        "id": 2,
+        "title_ar": "التمكين الوظيفي",
+        "title_en": "Employment Empowerment",
+        "description_ar": "دعم مشاركتهم في سوق العمل وتعزيز استقلاليتهم المهنية.",
+        "description_en": "Supporting their participation in the labour market and strengthening their professional independence."
+      },
+      {
+        "id": 3,
+        "title_ar": "التدخل المبكر",
+        "title_en": "Early Intervention",
+        "description_ar": "دعم الأطفال وأسرهم من خلال الخدمات والبرامج المناسبة لاحتياجاتهم.",
+        "description_en": "Supporting children and their families through services and programmes suited to their needs."
+      },
+      {
+        "id": 4,
+        "title_ar": "الدمج التعليمي",
+        "title_en": "Inclusive Education",
+        "description_ar": "تعزيز فرص المشاركة والتعلّم في بيئات تعليمية دامجة.",
+        "description_en": "Enhancing opportunities for participation and learning in inclusive educational environments."
+      },
+      {
+        "id": 5,
+        "title_ar": "الاستقلالية المجتمعية",
+        "title_en": "Community Independence",
+        "description_ar": "تعزيز قدرة أصحاب الهمم على المشاركة الفاعلة في المجتمع واتخاذ أدوار أكثر استقلالية.",
+        "description_en": "Strengthening the ability of People of Determination to participate actively in society and take on more independent roles."
+      },
+      {
+        "id": 6,
+        "title_ar": "البيئة المؤهلة",
+        "title_en": "Accessible Environment",
+        "description_ar": "تعزيز تهيئة البيئات والخدمات بما يدعم الوصول والاستقلالية والمشاركة.",
+        "description_en": "Improving environments and services to support accessibility, independence and participation."
+      }
+    ],
+    "impact_title_ar": "أثر التمكين",
+    "impact_title_en": "Empowerment Impact",
+    "impact": [
+      {
+        "id": 1,
+        "value": "1,362",
+        "title_ar": "طفلاً استفادوا من خدمات التدخل المبكر في مركز دبي لتطوير نمو الطفل",
+        "title_en": "Children who benefited from early intervention services at the Dubai Child Development Centre",
+        "description_ar": "دعم نمو الأطفال وتطوير مهاراتهم ومساندة أسرهم.",
+        "description_en": "Supporting children's development, strengthening their skills and assisting their families."
+      },
+      {
+        "id": 2,
+        "value": "681",
+        "title_ar": "طفلاً تم دمجهم في الحضانات والمدارس",
+        "title_en": "Children integrated into nurseries and schools",
+        "description_ar": "تعزيز التعلم والمشاركة والتفاعل مع الأقران وتكافؤ الفرص.",
+        "description_en": "Promoting learning, participation, interaction with peers and equal opportunities."
+      }
+    ],
+    "closing_title_ar": "من التدخل المبكر إلى الدمج التعليمي... نصنع أثراً يمتد إلى المستقبل.",
+    "closing_title_en": "From Early Intervention to Inclusive Education... Creating a Lasting Impact for the Future.",
+    "closing_description_ar": "تؤكد هذه النتائج أهمية الاستثمار في التدخل المبكر وتمكين الأطفال وأسرهم، والعمل مع المؤسسات التعليمية لبناء فرص أكثر شمولاً ومشاركة.",
+    "closing_description_en": "These results highlight the importance of investing in early intervention, empowering children and their families, and working with educational institutions to create more inclusive opportunities for participation."
+  },
+  "results": {
+    "title_ar": "النتائج",
+    "title_en": "Results",
+    "save_certificate_ar": "احفظ شهادتك",
+    "save_certificate_en": "Save Your Certificate",
+    "certificate_ar": "عرض الشهادة",
+    "certificate_en": "View Certificate",
+    "success_message_ar": "لقد أجبت بشكل صحيح على",
+    "success_message_en": "You answered correctly",
+    "out_of_ar": "من أصل",
+    "out_of_en": "out of",
+    "questions_label_ar": "أسئلة",
+    "questions_label_en": "questions",
+    "thank_you_ar": "شكراً لمشاركتك.",
+    "thank_you_en": "Thank you for participating."
+  },
+  "hotline": {
+    "title_ar": "QR الخط المجاني ورمز",
+    "title_en": "Toll-Free Hotline and QR Code",
+    "authority_ar": "هيئة تنمية المجتمع",
+    "authority_en": "Community Development Authority",
+    "number": "8002121",
+    "description_ar": "للاستفسار عن خدمات أصحاب الهمم وبرامج التمكين، تواصل مع الهيئة أو امسح الرمز لزيارة موقعها الإلكتروني.",
+    "description_en": "For enquiries about services for People of Determination and empowerment programmes, contact the Authority or scan the QR code to visit its website.",
+    "website": "cda.gov.ae",
+    "url": "https://www.cda.gov.ae"
+  },
+  "navigation": {
+    "home_ar": "الرئيسية",
+    "home_en": "Home"
+  }
+}

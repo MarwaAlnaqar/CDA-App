@@ -1,0 +1,64 @@
+
+/* =========================================
+   GE SS TWO — ARABIC
+========================================= */
+
+@font-face {
+  font-family: "GE SS Two";
+  src: url("/Fonts/Arabic/GE%20SS%20Two%20Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GE SS Two";
+  src: url("/Fonts/Arabic/GE%20SS%20Two%20Medium.otf") format("opentype");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GE SS Two";
+  src: url("/Fonts/Arabic/GE%20SS%20Two%20Bold.otf") format("opentype");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================================
+   SOURCE SANS PRO — ENGLISH
+========================================= */
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/Fonts/source-sans-pro/SourceSansPro-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/Fonts/source-sans-pro/SourceSansPro-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/Fonts/source-sans-pro/SourceSansPro-Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("/Fonts/source-sans-pro/SourceSansPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

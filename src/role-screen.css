@@ -1,0 +1,197 @@
+/* Role category only — reference layout */
+.himaya-role-screen { width: min(100%, 980px); margin: 0 auto; padding: 4px 0 45px; font-family: 'Source Sans Pro', sans-serif;margin-top: 5%; }
+.himaya-role-hero { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, .95fr); gap: 26px; align-items: stretch; }
+.himaya-role-screen[dir='ltr'] .himaya-role-hero { grid-template-columns: minmax(0, 1.9fr) minmax(0, .95fr); }
+.himaya-role-text-image { min-width: 0; background: #f7d5c3; border-radius: 30px; overflow: hidden; }
+.himaya-role-text-image img { display: block; width: 100%; height: 100%; object-fit: fill; }
+.himaya-role-text-fallback { display: grid; place-items: center; padding: 38px; min-height: 410px; color: #502600; font-size: 30px; font-weight: 700; line-height: 1.5; text-align: center; }
+.himaya-role-video { position: relative; overflow: hidden; min-height: 510px; border-radius: 28px; background: #563c2c; }
+.himaya-role-video .himaya-video-container, .himaya-role-video iframe, .himaya-role-video video { display: block; width: 100% !important; height: 100% !important; position: absolute; inset: 0; border: 0; }
+.himaya-role-video-placeholder { display: grid; place-items: center; height: 100%; min-height: 510px; color: white; }
+.himaya-role-prompt { margin: 35px 0 28px; padding: 24px 32px; background: #f7d5c3; color: #502600; border-radius: 30px; font-size: 26px; line-height: 1.4; font-weight: 700; text-align: start; }
+.himaya-role-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; }
+.himaya-role-option { display: flex; align-items: center; gap: 14px; min-height: 66px; border-radius: 60px; padding: 6px 12px; background: #fff; color: #16110c; border: 2px solid #502600; cursor: pointer; font: inherit; font-size: 26px; font-weight: 600; text-align: start; }
+.himaya-role-number { flex: 0 0 48px; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: #ff6500; color: white; font-size: 22px; }
+.himaya-role-option.is-selected { border-color: #ff6500; background: #fff1e7; }
+.himaya-role-option-text { flex: 1; }
+.himaya-role-start { display: block !important; margin: 34px auto 0 !important; min-width: 200px; font-size: 21px; }
+.himaya-role-start:disabled { opacity: .55; cursor: not-allowed; }
+@media (max-width: 650px) { .himaya-role-hero { gap: 12px; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); } .himaya-role-video, .himaya-role-video-placeholder { min-height: 260px; } .himaya-role-text-fallback { min-height: 260px; font-size: 17px; padding: 14px; } .himaya-role-text-image { border-radius: 18px; } .himaya-role-video { border-radius: 18px; } .himaya-role-prompt { font-size: 18px; padding: 18px; margin: 20px 0; border-radius: 20px; } 
+.himaya-role-options { gap: 9px; }
+ .himaya-role-option { min-height: 48px; font-size: 15px; gap: 7px; padding: 4px 7px; }
+  .himaya-role-number { flex-basis: 32px; width: 32px; height: 32px; font-size: 15px; } }
+
+
+
+
+
+/* ==========================================
+   ADVOCACY — ROLE SCREEN
+========================================== */
+
+/* Arabic role question */
+
+.himaya-role-screen[dir="rtl"] .himaya-role-prompt {
+  color: #502600;
+  text-align: right;
+  font-family: "GE SS Two", sans-serif;
+  font-size: 29px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 20px 40px;
+}
+
+/* English role question */
+
+.himaya-role-screen[dir="ltr"] .himaya-role-prompt {
+  color: #502600;
+  text-align: left;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 29px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 42px;
+  padding: 20px 40px;
+}
+
+/* Role image card */
+
+.himaya-role-screen .himaya-role-text-image {
+  width: 610px;
+  height: 568px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #F7D5C1;
+  overflow: hidden;
+}
+
+.himaya-role-screen .himaya-role-text-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Role video card */
+
+.himaya-role-screen .himaya-role-video {
+  width: 320px;
+  height: 568px;
+  flex-shrink: 0;
+  aspect-ratio: 40 / 71;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.himaya-role-screen .himaya-role-video .himaya-video-container {
+  width: 100%;
+  height: 100%;
+}
+
+.himaya-role-screen .himaya-role-video iframe,
+.himaya-role-screen .himaya-role-video video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Role option text — Arabic */
+
+.himaya-role-screen[dir="rtl"] .himaya-role-option {
+  color: #000;
+  text-align: right;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+  padding: 17px 13px;
+  gap: 13px;
+}
+
+/* Role option text — English */
+
+.himaya-role-screen[dir="ltr"] .himaya-role-option {
+  color: #000;
+  text-align: left;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 42px;
+  text-transform: capitalize;
+  padding: 17px 13px;
+  gap: 13px;
+}
+
+/* Keep number/icon and text separated */
+
+.himaya-role-screen .himaya-role-option {
+  display: flex;
+  align-items: center;
+}
+
+.himaya-role-screen .himaya-role-number {
+  flex-shrink: 0;
+}
+
+/* Start Journey button */
+
+.himaya-role-screen .himaya-role-start {
+  display: flex;
+  width: 359px;
+  max-width: 100%;
+  height: 70px;
+  padding: 8px 30px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  color: #FFF;
+  text-align: center;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+
+@media (max-width: 1024px) {
+  .himaya-role-screen .himaya-role-text-image {
+    width: 100%;
+    max-width: 610px;
+    height: auto;
+    aspect-ratio: 610 / 568;
+  }
+
+  .himaya-role-screen .himaya-role-video {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    aspect-ratio: 40 / 71;
+  }
+}
+
+@media (max-width: 600px) {
+  .himaya-role-screen[dir] .himaya-role-prompt {
+    padding: 16px 12px;
+    font-size: 23px;
+    line-height: 1.4;
+  }
+
+  .himaya-role-screen[dir] .himaya-role-option {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .himaya-role-screen .himaya-role-start {
+    width: 100%;
+    height: 64px;
+    font-size: 21px;
+  }
+}
