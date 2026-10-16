@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import Shell from '../components/Shell.jsx';
 import ChoiceButtons from '../components/ChoiceButtons.jsx';
 import { media, localized } from '../utils.js';
-
+import isParent from"../../public/images/isParent.png";
+import ParentorGuardian from"../../public/images/ParentorGuardian.png";
 // Convert Vimeo URLs into embeddable player URLs.
 function getVimeoEmbedUrl(url) {
   if (!url) return '';
@@ -117,7 +118,18 @@ export default function ParentGateway({
           {renderVideo()}
         </div>
 
-        <div className="journey-gateway-question">
+        <div className="journey-gateway-question" style={{backgroundImage: `url(${isParent})`,backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    height: '164px',
+   backgroundColor: 'unset',
+    flexDirection: 'column',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+    
+    
+    }}>
+      <img src={ParentorGuardian} alt="Parent"   width="45" height="45"/>
           {localized(card, 'card_question', lang)}
         </div>
 

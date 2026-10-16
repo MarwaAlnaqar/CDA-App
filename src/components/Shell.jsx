@@ -27,12 +27,14 @@ function getPublicUrl(path) {
 
 export default function Shell({
   children,
-  lang = 'ar',name,
+  lang = 'ar',name='',
   backgroundVideo
 }) {
+  console.log('Shell name:', name);
+console.log('Shell language:', lang);
   const currentLang = lang === 'en' ? 'en' : 'ar';
   const isArabic = currentLang === 'ar';
-console.log(window.href)
+console.log(name);
   // Use supplied video, otherwise use the JSON default
   const selectedVideo =
     backgroundVideo ?? config.media.bg;

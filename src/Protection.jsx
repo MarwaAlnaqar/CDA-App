@@ -504,7 +504,7 @@ export default function Protection() {
   // =====================================
 
   return (
-    <Shell lang={lang} name='protection'>
+    <Shell lang={lang} >
       <div className="journey-error">
         {lang === 'ar'
           ? 'لا توجد أسئلة متاحة.'

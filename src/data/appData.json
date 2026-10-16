@@ -5,7 +5,7 @@
   "subtitle_ar": "اختبار توعوي مصور عن حماية أصحاب الهمم",
   "media": {
     "background": "/videos/background.mp4",
-    "intro": "/videos/intro.mp4",
+    "intro": "https://vimeo.com/1236523047?share=copy&fl=sv&fe=ci",
     "introAlternate": "/images/intro-alternate.png",
     "governmentLogo": "/images/government-of-dubai.png",
     "cdaLogo": "/images/cda-logo.png",

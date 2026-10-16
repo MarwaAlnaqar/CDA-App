@@ -547,7 +547,7 @@ export default function QuizScreen({
     const roleVideo = getCardVideo(roleCard, 'question', lang);
 
     return (
-      <Shell lang={lang}>
+      <Shell lang={lang} name="protection">
         <main className="himaya-role-screen" dir={direction}>
           <div className="himaya-role-hero">
             <div className="himaya-role-text-image">
