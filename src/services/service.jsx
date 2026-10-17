@@ -1,4 +1,4 @@
-const API = (import.meta.env.VITE_API_URL || 'http://localhost:5000').replace(/\/$/, '');
+const API = 'https://events.dxblive.com';
 async function request(path, options={}) {
  const response = await fetch(`${API}${path}`, { ...options, headers: { 'Content-Type':'application/json',...options.headers } });
  const json = await response.json().catch(()=>({}));
