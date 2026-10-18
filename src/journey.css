@@ -1,11 +1,18 @@
 /* Organized journey.css — consolidated repeated selectors; last effective overrides retained. */
 /* BASE STYLES */
-.journey-screen .journey-background-video {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
+html,
+body,
+#root {
   min-height: 100%;
+  background: #040e37;
+}
+
+.journey-screen .journey-background-video {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
   object-fit: cover !important;
   object-position: center !important;
   z-index: -1 !important;
@@ -19,6 +26,7 @@
 
 .journey-screen {
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative !important;
   background: linear-gradient(155deg,#214aa1,#173b8a 60%,#040e37);
   color: #fff;
@@ -74,24 +82,42 @@
 
 .journey-welcome {
   text-align: center;
-  max-width: 90%;
+  width: 100%;
+  max-width: none;
   margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  height: 80vh;
-  justify-content: center;
+  gap: 0;
+  height: auto;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .journey-welcome video {
   width: 100%;
-  height: 70vh;
-  border-radius: 30px !important;
-  object-fit: cover;
+  height: 100%;
+  border-radius: 24px !important;
+  object-fit: contain;
+  background: #000;
   display: block;
-  margin: 20px auto;
-  max-width: 80%;
+  margin: 0;
+  max-width: none;
+}
+
+.journey-welcome .himaya-vimeo-wrapper {
+  width: min(100%, 540px);
+  height: auto;
+  aspect-ratio: 240 / 426;
+  max-height: min(70vh, 980px);
+  margin: 24px auto 0;
+  border-radius: 24px;
+}
+
+.journey-intro-caption {
+  margin: 14px 0 24px;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
 }
 
 .journey-languages {
@@ -452,6 +478,26 @@
   margin: 0 10px;
 }
 
+@media (max-width: 430px) {
+  .journey-welcome {
+    width: 100%;
+  }
+
+  .journey-languages {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding-inline: 4px;
+  }
+
+  .journey-languages .orange-button {
+    width: min(100%, 240px);
+    min-width: 0;
+    padding-inline: 18px;
+  }
+}
+
 .journey-screen .orange-button {
   border-radius: 40px;
   background: #ff6500;
@@ -556,6 +602,8 @@
   height: 100%;
   overflow: hidden;
   background: #201b18;
+  border-radius: 30px;
+  clip-path: inset(0 round 30px);
 }
 
 .himaya-vimeo-wrapper iframe {
@@ -563,6 +611,9 @@
   height: 100%;
   border: none;
   border-radius: 30px;
+  overflow: hidden;
+  display: block;
+  background: #000;
 }
 
 .himaya-vimeo-loading {
@@ -867,6 +918,15 @@ html[lang="ar"] button,
   overflow: hidden;
 }
 
+.himaya-video-fallback {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  border: 0;
+}
+
 /* Existing responsive rules: (max-width: 768px) */
 @media (max-width: 768px) {
   .journey-screen .journey-background-video {
@@ -903,7 +963,7 @@ html[lang="ar"] button,
   }
 
   .journey-role-hero {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   .journey-role-hero>div {
@@ -1064,6 +1124,36 @@ html[lang="ar"] button,
 .results-main .result-section, .results-main .qr-column, .results-main .score-column, .results-main .hotline-copy { min-width: 0; }
 .results-main img { max-width: 100%; }
 
+.results-overview {
+  align-items: center;
+}
+
+.results-video-wrap {
+  width: min(100%, 440px);
+  height: 780px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 26px;
+  background: #111;
+}
+
+.results-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.results-overview .result-section {
+  width: min(100%, 850px);
+  margin: 0 auto;
+}
+
+.results-next-button {
+  margin: 0 auto;
+  min-width: 240px;
+}
+
 @media (max-width: 1024px) {
   .results-main { padding: 25px 20px 60px; }
   .results-main .result-section { margin-bottom: 40px; }
@@ -1125,4 +1215,301 @@ html[lang="ar"] button,
   .results-main .score-line { gap: 6px; font-size: 13px; }
   .results-main .score-bubble { width: 40px; height: 40px; min-width: 40px; font-size: 19px; }
   .results-main .home-button { font-size: 17px; }
+}
+
+/* Portrait kiosk layout: keep the complete results experience inside 1080x1920. */
+@media (min-width: 700px) and (max-width: 1200px) and (min-height: 1600px) {
+  html,
+  body,
+  #root,
+  .journey-screen {
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Keep the partner logos pinned to the top and center the intro content below them. */
+  .journey-content {
+    height: 100vh;
+    min-height: 0;
+    padding-top: 24px;
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  .journey-content .brand-header {
+    margin-top: 0;
+  }
+
+  .journey-welcome {
+    width: 100%;
+    min-height: calc(100vh - 130px);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .journey-languages {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .journey-welcome .himaya-vimeo-wrapper {
+    width: min(100%, 440px);
+    height: 780px;
+    aspect-ratio: 240 / 426;
+    margin: 0 auto;
+  }
+
+  .results-main {
+    height: auto;
+    min-height: 0;
+    margin: 8px auto 0;
+    width: 100%;
+    max-width: none;
+    padding: 12px 10px 18px;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+
+  /* The final Protection support screen should sit in the middle of the
+     1080x1920 portrait canvas, while the partner logos remain at the top. */
+  .results-support {
+    min-height: calc(100vh - 114px);
+    justify-content: center;
+  }
+
+  .advocacy-results,
+  .empowerment-results {
+    min-height: calc(100vh - 114px);
+    justify-content: center;
+  }
+
+  .results-main .result-section {
+    width: 100%;
+    padding: 36px 24px 22px;
+    border-radius: 28px;
+  }
+
+  .results-overview {
+    gap: 16px;
+  }
+
+  .results-overview .results-video-wrap {
+    width: min(100%, 440px);
+    height: 780px;
+  }
+
+  .results-overview .result-section {
+    width: 100%;
+  }
+
+  .results-main .floating-title {
+    top: -20px;
+    min-width: 250px;
+    padding: 7px 18px 0;
+    font-size: 20px;
+  }
+
+  .results-main .section-intro {
+    margin: 0 0 10px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .results-main .protection-grid {
+    gap: 16px;
+  }
+
+  .results-main .protection-step {
+    min-height: 180px;
+    padding: 15px 10px;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .results-main .step-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 8px;
+  }
+
+  .results-main .step-icon img {
+    max-width: 32px;
+  }
+
+  .results-main .step-icon span {
+    top: -7px;
+    width: 23px;
+    height: 23px;
+    font-size: 12px;
+  }
+
+  .results-main .protection-step h3 {
+    margin: 5px 0;
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .results-main .protection-step p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .results-main .result-columns,
+  .results-main .hotline-columns {
+    gap: 24px;
+  }
+
+  .results-main .qr-column {
+    gap: 7px;
+  }
+
+  .results-main .score-column p {
+    margin: 4px 0;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  .results-main .score-line {
+    gap: 7px;
+    font-size: 16px;
+  }
+
+  .results-main .score-bubble {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    font-size: 21px;
+  }
+
+  .results-main .hotline-copy h3 {
+    margin: 0 0 5px;
+    font-size: 16px;
+  }
+
+  .results-main .hotline-number {
+    margin-bottom: 5px;
+    font-size: 28px;
+  }
+
+  .results-main .hotline-copy p {
+    margin: 5px 0;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .results-main .home-button {
+    min-height: 48px;
+    margin: 8px auto 0;
+    padding: 8px 20px;
+    font-size: 18px;
+  }
+
+  .empowerment-results .result-section {
+    margin-bottom: 0;
+  }
+
+  .empowerment-results .empowerment-strategic-content {
+    padding: 12px 10px 8px;
+  }
+
+  .empowerment-results .empowerment-subtitle {
+    margin-bottom: 7px;
+    font-size: 14px;
+  }
+
+  .empowerment-results .empowerment-pillars-grid,
+  .empowerment-results .empowerment-impact-grid {
+    gap: 7px;
+  }
+
+  .empowerment-results .empowerment-pillar-card,
+  .empowerment-results .empowerment-impact-card {
+    padding: 8px;
+    border-radius: 11px;
+  }
+
+  .empowerment-results .empowerment-pillar-card h4,
+  .empowerment-results .empowerment-impact-card h4 {
+    margin-bottom: 2px;
+    font-size: 12px;
+  }
+
+  .empowerment-results .empowerment-pillar-card p,
+  .empowerment-results .empowerment-impact-card p {
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  .empowerment-results .empowerment-impact-heading,
+  .empowerment-results .empowerment-closing {
+    margin-top: 8px;
+  }
+
+  .empowerment-results .empowerment-impact-number {
+    margin-bottom: 2px;
+    font-size: 22px;
+  }
+
+  .empowerment-results .empowerment-closing h3 {
+    margin-bottom: 3px;
+    font-size: 12px;
+  }
+
+  .empowerment-results .empowerment-closing p {
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  .empowerment-results .empowerment-result-columns,
+  .empowerment-results .empowerment-hotline-columns {
+    padding: 10px 12px;
+    gap: 12px;
+  }
+
+  .empowerment-results .empowerment-qr-column,
+  .empowerment-results .empowerment-hotline-qr {
+    gap: 5px;
+  }
+
+  .empowerment-results .empowerment-qr-column svg,
+  .empowerment-results .empowerment-hotline-qr svg {
+    width: 110px;
+    height: 110px;
+  }
+
+  .empowerment-results .empowerment-score-intro {
+    margin: 4px 0 8px;
+    font-size: 14px;
+  }
+
+  .empowerment-results .empowerment-score-line {
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  .empowerment-results .empowerment-score-bubble {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+    font-size: 20px;
+  }
+
+  .empowerment-results .empowerment-hotline-copy h3 {
+    margin: 0 0 4px;
+    font-size: 14px;
+  }
+
+  .empowerment-results .empowerment-hotline-number {
+    font-size: 25px;
+  }
+
+  .empowerment-results .empowerment-hotline-copy p,
+  .empowerment-results .empowerment-hotline-website {
+    font-size: 10px;
+    line-height: 1.25;
+  }
 }

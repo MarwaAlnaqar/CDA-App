@@ -1,6 +1,8 @@
 
 import React from 'react';
 import config from '../data/appData.json';
+import advocacyConfig from '../data/advocacy.json';
+import empowermentConfig from '../data/empowerment.json';
 
 // Resolve files inside public/
 function getPublicUrl(path) {
@@ -35,9 +37,16 @@ console.log('Shell language:', lang);
   const currentLang = lang === 'en' ? 'en' : 'ar';
   const isArabic = currentLang === 'ar';
 console.log(name);
-  // Use supplied video, otherwise use the JSON default
+  const pathname = window.location.pathname.toLowerCase();
+  const pageConfig = pathname.includes('/advocacy')
+    ? advocacyConfig
+    : pathname.includes('/empowerment')
+      ? empowermentConfig
+      : config;
+
+  // Use the current journey's background video unless a screen overrides it.
   const selectedVideo =
-    backgroundVideo ?? config.media.bg;
+    backgroundVideo ?? pageConfig.media.bg ?? config.media.bg;
 
   const videoSrc = getPublicUrl(selectedVideo);
 

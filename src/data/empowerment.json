@@ -1,5 +1,25 @@
 
 {
+  "media": {
+    "bg": "/images/empowerment/empowerment_bg.mp4",
+    "video_ar": "/videos/protection/need_protection_ar.mp4",
+      "video_en": "/videos/protection/need_protection_en.mp4"
+  },
+      
+      "certificates": {
+        "success": {
+          "title_en": "Well done!",
+          "title_ar": "أحسنت!",
+          "description_en": "You have successfully completed the Empowerment quiz. Your understanding of skills and inclusive environments helps strengthen the independence and community participation of People of Determination.",
+          "description_ar": "لقد أكملت اختبار التمكين بنجاح. معرفتك بدور المهارات والبيئات الدامجة تسهم في تعزيز استقلالية أصحاب الهمم ومشاركتهم في المجتمع."
+        },
+        "participation": {
+          "title_en": "Thank You!",
+          "title_ar": "شكراً",
+          "description_en": "Thank you for taking part in the Empowerment quiz. Your understanding of skills and inclusive environments helps strengthen the independence and community participation of People of Determination.",
+          "description_ar": "شكراً لمشاركتك في اختبار التمكين. إن فهمك للمهارات والبيئات الدامجة يسهم في تعزيز استقلالية أصحاب الهمم ومشاركتهم الفاعلة في المجتمع."
+        }
+      },
   "strategic_role": {
     "title_ar": "الدور الاستراتيجي لهيئة تنمية المجتمع في التمكين",
     "title_en": "The Strategic Role of the Community Development Authority in Empowerment",
@@ -73,6 +93,20 @@
     "closing_title_en": "From Early Intervention to Inclusive Education... Creating a Lasting Impact for the Future.",
     "closing_description_ar": "تؤكد هذه النتائج أهمية الاستثمار في التدخل المبكر وتمكين الأطفال وأسرهم، والعمل مع المؤسسات التعليمية لبناء فرص أكثر شمولاً ومشاركة.",
     "closing_description_en": "These results highlight the importance of investing in early intervention, empowering children and their families, and working with educational institutions to create more inclusive opportunities for participation."
+  },
+  "certificate_copy": {
+    "success": {
+      "title_en": "Well done!",
+      "title_ar": "\u0623\u062d\u0633\u0646\u062a!",
+      "description_en": "You have successfully completed the Empowerment quiz.\nYour understanding of skills and inclusive environments helps strengthen the independence and community participation of People of Determination.",
+      "description_ar": "\u0644\u0642\u062f \u0623\u0643\u0645\u0644\u062a \u0627\u062e\u062a\u0628\u0627\u0631 \u0627\u0644\u062a\u0645\u0643\u064a\u0646 \u0628\u0646\u062c\u0627\u062d.\n\u0645\u0639\u0631\u0641\u062a\u0643 \u0628\u062f\u0648\u0631 \u0627\u0644\u0645\u0647\u0627\u0631\u0627\u062a \u0648\u0627\u0644\u0628\u064a\u0626\u0627\u062a \u0627\u0644\u062f\u0627\u0645\u062c\u0629 \u062a\u0633\u0647\u0645 \u0641\u064a \u062a\u0639\u0632\u064a\u0632 \u0627\u0633\u062a\u0642\u0644\u0627\u0644\u064a\u0629 \u0623\u0635\u062d\u0627\u0628 \u0627\u0644\u0647\u0645\u0645 \u0648\u0645\u0634\u0627\u0631\u0643\u062a\u0647\u0645 \u0641\u064a \u0627\u0644\u0645\u062c\u062a\u0645\u0639."
+    },
+    "participation": {
+      "title_en": "Thank You!",
+      "title_ar": "\u0634\u0643\u0631\u0627\u064b",
+      "description_en": "Thank you for taking part in the Empowerment quiz.\nYour understanding of skills and inclusive environments helps strengthen the independence and community participation of People of Determination.",
+      "description_ar": "\u0634\u0643\u0631\u0627\u064b \u0644\u0645\u0634\u0627\u0631\u0643\u062a\u0643 \u0641\u064a \u0627\u062e\u062a\u0628\u0627\u0631 \u0627\u0644\u062a\u0645\u0643\u064a\u0646.\n\u0625\u0646 \u0641\u0647\u0645\u0643 \u0644\u0644\u0645\u0647\u0627\u0631\u0627\u062a \u0648\u0627\u0644\u0628\u064a\u0626\u0627\u062a \u0627\u0644\u062f\u0627\u0645\u062c\u0629 \u064a\u0633\u0647\u0645 \u0641\u064a \u062a\u0639\u0632\u064a\u0632 \u0627\u0633\u062a\u0642\u0644\u0627\u0644\u064a\u0629 \u0623\u0635\u062d\u0627\u0628 \u0627\u0644\u0647\u0645\u0645 \u0648\u0645\u0634\u0627\u0631\u0643\u062a\u0647\u0645 \u0627\u0644\u0641\u0627\u0639\u0644\u0629 \u0641\u064a \u0627\u0644\u0645\u062c\u062a\u0645\u0639."
+    }
   },
   "results": {
     "title_ar": "النتائج",

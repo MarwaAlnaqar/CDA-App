@@ -9,8 +9,9 @@ import React, {
 import Shell from './components/Shell.jsx';
 import Welcome from './pages/Welcome.jsx';
 import QuizAdvocacyScreen from './pages/QuizAdvocacyScreen.jsx';
-import ResultsEmpowerment from './pages/ResultsAdvocacy.jsx';
+import Results from './pages/ResultsEmpowerment.jsx';
 import Certificate from './pages/Certificate.jsx';
+import CertificateClaim from './pages/CertificateClaim.jsx';
 
 import {
   getEmpowermentCards,
@@ -28,8 +29,10 @@ export default function Empowerment() {
   // =====================================
 
   const [page, setPage] = useState(
-    window.location.hash.startsWith('#/certificate')
-      ? 'certificate'
+    window.location.hash.startsWith('#/certificate-claim')
+      ? 'certificateClaim'
+      : window.location.hash.startsWith('#/certificate')
+        ? 'certificate'
       : 'welcome'
   );
 
@@ -78,11 +81,10 @@ export default function Empowerment() {
 
   useEffect(() => {
     const sync = () => {
-      if (
-        window.location.hash.startsWith(
-          '#/certificate'
-        )
-      ) {
+      if (window.location.hash.startsWith('#/certificate-claim')) {
+        setLang(window.location.hash.includes('lang=en') ? 'en' : 'ar');
+        setPage('certificateClaim');
+      } else if (window.location.hash.startsWith('#/certificate')) {
         setLang(
           window.location.hash.includes('lang=en')
             ? 'en'
@@ -292,7 +294,11 @@ export default function Empowerment() {
         );
       }
 
-      setResult(response?.result || null);
+      setResult({
+        ...(response?.result || {}),
+        submissionId: response?.submissionId,
+        certificateToken: response?.certificateToken
+      });
       setPage('results');
 
       scrollTop();
@@ -406,16 +412,19 @@ export default function Empowerment() {
       <Results
         lang={lang}
         result={result}
+        journey="empowerment"
+        certificateToken={result?.certificateToken}
         score={result?.correct ?? 0}
         total={
           result?.total ?? generalCards.length
         }
         onHome={home}
         onCertificate={() => {
-          window.location.hash =
-            `#/certificate?lang=${lang}`;
-
-          setPage('certificate');
+          const route = result?.certificateToken
+            ? 'certificate-claim'
+            : 'certificate';
+          window.location.hash = `#/${route}?lang=${lang}`;
+          setPage(result?.certificateToken ? 'certificateClaim' : 'certificate');
           scrollTop();
         }}
       />
@@ -431,8 +440,13 @@ export default function Empowerment() {
       <Certificate
         lang={lang}
         onHome={home}
+        journey="empowerment"
       />
     );
+  }
+
+  if (page === 'certificateClaim') {
+    return <CertificateClaim lang={lang} onHome={home} />;
   }
 
   // =====================================

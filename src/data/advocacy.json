@@ -1,5 +1,45 @@
 
 {
+    "media": {
+    "background": "/videos/background.mp4",
+    "intro": "https://vimeo.com/1236523047?share=copy&fl=sv&fe=ci",
+    "introAlternate": "/images/intro-alternate.png",
+    "governmentLogo": "/images/government-of-dubai.png",
+    "cdaLogo": "/images/cda-logo.png",
+    "handIcon": "/images/Himaya-icon.png",
+    "bg":"/images/advocacy/advocacy_bg.mp4",
+    "video_ar": "/videos/protection/need_protection_ar.mp4",
+      "video_en": "/videos/protection/need_protection_en.mp4"
+  },
+      
+      "certificates": {
+        "success": {
+          "title_en": "Well done!",
+          "title_ar": "أحسنت!",
+          "description_en": "You have successfully completed the Advocacy quiz. Your understanding of skills and inclusive environments helps strengthen the independence and community participation of People of Determination.",
+          "description_ar": "لقد أكملت اختبار التمكين بنجاح. معرفتك بدور المهارات والبيئات الدامجة تسهم في تعزيز استقلالية أصحاب الهمم ومشاركتهم في المجتمع."
+        },
+        "participation": {
+          "title_en": "Thank You!",
+          "title_ar": "شكراً",
+          "description_en": "Thank you for taking part in the Advocacy quiz. Your understanding of skills and inclusive environments helps strengthen the independence and community participation of People of Determination.",
+          "description_ar": "شكراً لمشاركتك في اختبار التمكين. إن فهمك للمهارات والبيئات الدامجة يسهم في تعزيز استقلالية أصحاب الهمم ومشاركتهم الفاعلة في المجتمع."
+        }
+      },
+  "certificate_copy": {
+    "success": {
+      "title_en": "Well done!",
+      "title_ar": "\u0623\u062d\u0633\u0646\u062a!",
+      "description_en": "You have successfully completed the Advocacy quiz.\nYour understanding of skills and inclusive environments helps strengthen the independence and community participation of People of Determination.",
+      "description_ar": "\u0644\u0642\u062f \u0623\u0643\u0645\u0644\u062a \u0627\u062e\u062a\u0628\u0627\u0631 \u0627\u0644\u0645\u0646\u0627\u0635\u0631\u0629 \u0628\u0646\u062c\u0627\u062d.\n\u0645\u0639\u0631\u0641\u062a\u0643 \u0628\u062f\u0648\u0631 \u0627\u0644\u0645\u0647\u0627\u0631\u0627\u062a \u0648\u0627\u0644\u0628\u064a\u0626\u0627\u062a \u0627\u0644\u062f\u0627\u0645\u062c\u0629 \u062a\u0633\u0647\u0645 \u0641\u064a \u062a\u0639\u0632\u064a\u0632 \u0627\u0633\u062a\u0642\u0644\u0627\u0644\u064a\u0629 \u0623\u0635\u062d\u0627\u0628 \u0627\u0644\u0647\u0645\u0645 \u0648\u0645\u0634\u0627\u0631\u0643\u062a\u0647\u0645 \u0641\u064a \u0627\u0644\u0645\u062c\u062a\u0645\u0639."
+    },
+    "participation": {
+      "title_en": "Thank You!",
+      "title_ar": "\u0634\u0643\u0631\u0627\u064b",
+      "description_en": "Thank you for taking part in the Advocacy quiz.\nYour understanding of skills and inclusive environments helps strengthen the independence and community participation of People of Determination.",
+      "description_ar": "\u0634\u0643\u0631\u0627\u064b \u0644\u0645\u0634\u0627\u0631\u0643\u062a\u0643 \u0641\u064a \u0627\u062e\u062a\u0628\u0627\u0631 \u0627\u0644\u0645\u0646\u0627\u0635\u0631\u0629.\n\u0625\u0646 \u0641\u0647\u0645\u0643 \u0644\u0644\u0645\u0647\u0627\u0631\u0627\u062a \u0648\u0627\u0644\u0628\u064a\u0626\u0627\u062a \u0627\u0644\u062f\u0627\u0645\u062c\u0629 \u064a\u0633\u0647\u0645 \u0641\u064a \u062a\u0639\u0632\u064a\u0632 \u0627\u0633\u062a\u0642\u0644\u0627\u0644\u064a\u0629 \u0623\u0635\u062d\u0627\u0628 \u0627\u0644\u0647\u0645\u0645 \u0648\u0645\u0634\u0627\u0631\u0643\u062a\u0647\u0645 \u0627\u0644\u0641\u0627\u0639\u0644\u0629 \u0641\u064a \u0627\u0644\u0645\u062c\u062a\u0645\u0639."
+    }
+  },
   "results": {
     "title_ar": "النتائج",
     "title_en": "Results",

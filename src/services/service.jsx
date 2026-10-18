@@ -7,6 +7,16 @@ async function request(path, options={}) {
 }
 export async function getProtectionCards() { const result=await request('/api/protection/cards'); return result.cards || []; }
 export async function saveProtectionAnswers(answers) { return request('/api/protection/answers',{method:'POST',body:JSON.stringify({answers})}); }
+export async function getCertificate(journey, token) {
+ return request(`/api/${journey}/certificate/${encodeURIComponent(token)}`);
+}
+export async function claimCertificate(journey, token, participantName) {
+ return request(`/api/${journey}/certificate/claim`,{method:'POST',body:JSON.stringify({token,participantName})});
+}
+export async function getProtectionCertificate(token) { return getCertificate('protection', token); }
+export async function claimProtectionCertificate(token, participantName) {
+ return claimCertificate('protection', token, participantName);
+}
 
 export async function getAdvocacyCards() { const result=await request('/api/advocacy/cards'); return result.cards || []; }
 export async function saveAdvocacyAnswers(answers) { return request('/api/advocacy/answers',{method:'POST',body:JSON.stringify({answers})}); }

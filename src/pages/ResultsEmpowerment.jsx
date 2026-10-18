@@ -1,10 +1,11 @@
 
 import React from 'react';
-import { Home } from 'lucide-react';
+import { Download, Home } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 import Shell from '../components/Shell.jsx';
 import empowerment from '../data/empowerment.json';
+import { media } from '../utils.js';
 
 import '../journey.css';
 
@@ -40,6 +41,7 @@ function Section({ title, children, className = '' }) {
 export default function ResultsEmpowerment({
   lang = 'ar',
   result,
+  certificateToken,
   onHome,
   onCertificate
 }) {
@@ -48,14 +50,14 @@ export default function ResultsEmpowerment({
   const strategic = empowerment.strategic_role;
   const results = empowerment.results;
   const hotline = empowerment.hotline;
+  const finalVideo = empowerment.media?.[`video_${lang}`];
 
   const score = Number(result?.correct ?? 0);
   const total = Number(result?.total ?? 0);
 
-  const certificateUrl =
-    `${window.location.origin}` +
-    `${window.location.pathname}` +
-    `#/certificate?lang=${lang}`;
+  const certificateUrl = certificateToken
+    ? `${window.location.origin}${window.location.pathname}#/certificate-claim?token=${encodeURIComponent(certificateToken)}&lang=${lang}`
+    : `${window.location.origin}${window.location.pathname}#/certificate?lang=${lang}`;
 
   return (
     <Shell lang={lang}>
@@ -63,6 +65,9 @@ export default function ResultsEmpowerment({
         className="results-main empowerment-results"
         dir={isArabic ? 'rtl' : 'ltr'}
       >
+        <div className="results-video-wrap journey-final-video">
+          <video className="results-video" src={media(finalVideo)} playsInline controls preload="metadata" />
+        </div>
 
         {/* ==================================
             STRATEGIC ROLE
@@ -155,6 +160,7 @@ export default function ResultsEmpowerment({
                 onClick={onCertificate}
               >
                 {t(results, 'certificate', lang)}
+                <Download size={16} />
               </button>
             </div>
 

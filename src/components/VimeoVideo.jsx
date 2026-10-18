@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import Player from '@vimeo/player';
+import { media } from '../utils.js';
 
 // Get the video URL based on selected language.
 export function getCardVideo(card, type = 'question', lang = 'ar') {
@@ -71,7 +72,7 @@ export function getVimeoEmbedUrl(url) {
     }
 
     embed.searchParams.set('autoplay', '1');
-    embed.searchParams.set('muted', '1');
+    embed.searchParams.set('muted', '0');
     embed.searchParams.set('playsinline', '1');
     embed.searchParams.set('controls', '0');
     embed.searchParams.set('dnt', '1');
@@ -83,15 +84,18 @@ export function getVimeoEmbedUrl(url) {
   }
 }
 
+const isDirectVideoUrl = url => /\.(mp4|webm|ogg)(?:[?#].*)?$/i.test(String(url || '').trim());
+
 export default function VimeoVideo({
   url,
   title = 'Himaya Sign Language Video',
   onEnded,
   onError,
   autoplay = true,
-  muted = true,
+  muted = false,
   controls = false,
-  className = ''
+  className = '',
+  fallbackSrc = ''
 }) {
   const iframeRef = useRef(null);
   const playerRef = useRef(null);
@@ -102,6 +106,7 @@ export default function VimeoVideo({
   const [ready, setReady] = useState(false);
 
   const embedUrl = useMemo(() => {
+    if (isDirectVideoUrl(url)) return '';
     const result = getVimeoEmbedUrl(url);
 
     if (!result) return '';
@@ -115,21 +120,41 @@ export default function VimeoVideo({
 
     parsed.searchParams.set(
       'muted',
-      muted ? '0' : '0'
+      muted ? '1' : '0'
     );
 
     parsed.searchParams.set(
       'controls',
-      controls ? '0' : '0'
+      controls ? '1' : '0'
     );
 
     return parsed.toString();
   }, [url, autoplay, muted, controls]);
 
+  // Card videos may be Vimeo links or local files served from /public/videos.
+  // Keep Vimeo in the iframe player, but play direct MP4/WebM/Ogg files natively.
+  const directVideoUrl = useMemo(() => {
+    return isDirectVideoUrl(url) ? media(url) : '';
+  }, [url]);
+
   useEffect(() => {
     onEndedRef.current = onEnded;
     onErrorRef.current = onError;
   }, [onEnded, onError]);
+
+  // Do not leave the participant on an indefinite Vimeo loading overlay.
+  // If Vimeo does not load within the timeout, the parent can show its
+  // normal unavailable/fallback state instead.
+  useEffect(() => {
+    if (!embedUrl || ready) return undefined;
+
+    const timeout = window.setTimeout(() => {
+      setFailed(true);
+      onErrorRef.current?.(new Error('Vimeo video loading timed out'));
+    }, 10000);
+
+    return () => window.clearTimeout(timeout);
+  }, [embedUrl, ready]);
 
   useEffect(() => {
     setFailed(false);
@@ -194,6 +219,45 @@ export default function VimeoVideo({
     };
   }, [embedUrl, autoplay, muted]);
 
+  if ((!embedUrl || failed) && fallbackSrc) {
+    return (
+      <div className={`himaya-vimeo-wrapper ${className}`}>
+        <video
+          className="himaya-video-fallback"
+          src={fallbackSrc}
+          autoPlay
+          muted={muted}
+          loop
+          playsInline
+          controls={controls}
+          aria-label={title}
+        />
+      </div>
+    );
+  }
+
+  if (directVideoUrl && !failed) {
+    return (
+      <div className={`himaya-vimeo-wrapper ${className}`}>
+        <video
+          className="himaya-video-fallback"
+          src={directVideoUrl}
+          autoPlay={autoplay}
+          muted={muted}
+          loop={!onEnded}
+          playsInline
+          controls={controls}
+          aria-label={title}
+          onEnded={() => onEndedRef.current?.()}
+          onError={(error) => {
+            setFailed(true);
+            onErrorRef.current?.(error);
+          }}
+        />
+      </div>
+    );
+  }
+
   if (!embedUrl || failed) {
     return (
       <div className={`himaya-video-placeholder ${className}`}>
@@ -212,6 +276,11 @@ export default function VimeoVideo({
         allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
         referrerPolicy="strict-origin-when-cross-origin"
+        onLoad={() => setReady(true)}
+        onError={() => {
+          setFailed(true);
+          onErrorRef.current?.(new Error('Vimeo iframe failed to load'));
+        }}
         style={{
           width: '100%',
           height: '100%',

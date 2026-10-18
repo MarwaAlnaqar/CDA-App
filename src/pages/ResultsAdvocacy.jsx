@@ -5,6 +5,8 @@ import { QRCodeSVG } from 'qrcode.react';
 
 import Shell from '../components/Shell.jsx';
 import advocacy from '../data/advocacy.json';
+import empowerment from '../data/empowerment.json';
+import { media } from '../utils.js';
 
 // =====================================
 // TRANSLATION HELPER
@@ -38,6 +40,8 @@ function Section({ title, children, className = '' }) {
 export default function ResultsAdvocacy({
   lang = 'ar',
   result,
+  journey = 'advocacy',
+  certificateToken,
   onHome,
   onCertificate
 }) {
@@ -46,13 +50,14 @@ export default function ResultsAdvocacy({
   const score = result?.correct ?? 0;
   const total = result?.total ?? 0;
 
-  const content = advocacy.results;
+  const journeyData = journey === 'empowerment' ? empowerment : advocacy;
+  const content = journeyData.results;
   const authority = advocacy.authority_role;
+  const finalVideo = journeyData.media?.[`video_${lang}`];
 
-  const certificateUrl =
-    `${window.location.origin}` +
-    `${window.location.pathname}` +
-    `#/certificate?lang=${lang}`;
+  const certificateUrl = certificateToken
+    ? `${window.location.origin}${window.location.pathname}#/certificate-claim?token=${encodeURIComponent(certificateToken)}&lang=${lang}`
+    : `${window.location.origin}${window.location.pathname}#/certificate?lang=${lang}`;
 
   return (
     <Shell lang={lang}>
@@ -60,6 +65,9 @@ export default function ResultsAdvocacy({
         className="results-main advocacy-results"
         dir={isArabic ? 'rtl' : 'ltr'}
       >
+        <div className="results-video-wrap journey-final-video">
+          <video className="results-video" src={media(finalVideo)} playsInline controls preload="metadata" />
+        </div>
         {/* =====================================
             RESULTS
         ===================================== */}
@@ -92,7 +100,7 @@ export default function ResultsAdvocacy({
                 onClick={onCertificate}
               >
                 {t(content, 'certificate', lang)}
-                <Download size={18} />
+                <Download size={16} />
               </button>
             </div>
 
@@ -223,7 +231,7 @@ export default function ResultsAdvocacy({
           onClick={onHome}
         >
           {t(
-            advocacy.navigation,
+            journeyData.navigation || advocacy.navigation,
             'home',
             lang
           )}

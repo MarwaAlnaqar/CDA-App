@@ -9,7 +9,7 @@ export default function QuestionVideo({ card, phase, correct, onFinished, lang }
   useEffect(() => setFailed(false), [src]);
   const available = !!src && !failed;
   return <div className="journey-video-box">
-    {available ? <video key={`${card.id}-${phase}-${src}`} src={media(src)} autoPlay playsInline muted controls
+    {available ? <video key={`${card.id}-${phase}-${src}`} src={media(src)} autoPlay playsInline controls
       onEnded={() => { if (phase === 'feedback') onFinished(); }}
       onError={() => setFailed(true)} />
       : <div className="journey-video-placeholder">

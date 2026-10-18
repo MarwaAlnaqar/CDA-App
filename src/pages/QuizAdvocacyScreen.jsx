@@ -156,14 +156,8 @@ export default function QuizAdvocacyScreen({
 
   const hasFeedbackVideo = Boolean(feedbackVideo);
 
-  const canContinue =
-    hasSelected &&
-    phase === 'feedback' &&
-    (
-      !hasFeedbackVideo ||
-      videoFailed ||
-      feedbackFinished
-    );
+  // Do not make participants wait for feedback video playback to finish.
+  const canContinue = hasSelected && phase === 'feedback';
 
   // =====================================
   // RESET MEDIA ON QUESTION CHANGE
@@ -241,7 +235,6 @@ export default function QuizAdvocacyScreen({
             lang
           )}
           autoplay
-          muted
           controls
           onEnded={() => {
             if (
@@ -663,11 +656,7 @@ const roleImage =
                   ? 'السؤال التالي'
                   : 'Next Question'}
 
-              {isArabic ? (
-                <ArrowLeft size={22} />
-              ) : (
-                <ArrowRight size={22} />
-              )}
+              <img className="navigation-arrow" src={media('/images/Navigation Arrow.svg')} alt="" aria-hidden="true" />
             </button>
           )}
       </main>

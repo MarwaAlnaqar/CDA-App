@@ -7,6 +7,7 @@ import ParentGateway from './pages/ParentGateway.jsx';
 import QuizScreen from './pages/QuizScreen.jsx';
 import Results from './pages/Results.jsx';
 import Certificate from './pages/Certificate.jsx';
+import CertificateClaim from './pages/CertificateClaim.jsx';
 
 import {
   getProtectionCards,
@@ -29,9 +30,11 @@ export default function Protection() {
   // =====================================
 
   const [page, setPage] = useState(
-    window.location.hash.startsWith('#/certificate')
-      ? 'certificate'
-      : 'welcome'
+    window.location.hash.startsWith('#/certificate-claim')
+      ? 'certificateClaim'
+      : window.location.hash.startsWith('#/certificate')
+        ? 'certificate'
+        : 'welcome'
   );
 
   const [lang, setLang] = useState(
@@ -83,7 +86,14 @@ export default function Protection() {
 
   useEffect(() => {
     const sync = () => {
-      if (window.location.hash.startsWith('#/certificate')) {
+      if (
+        window.location.hash.startsWith('#/certificate-claim')
+      ) {
+        setLang(
+          window.location.hash.includes('lang=en') ? 'en' : 'ar'
+        );
+        setPage('certificateClaim');
+      } else if (window.location.hash.startsWith('#/certificate')) {
         setLang(
           window.location.hash.includes('lang=en') ? 'en' : 'ar'
         );
@@ -227,7 +237,11 @@ export default function Protection() {
         );
       }
 
-      setResult(response?.result || null);
+      setResult({
+        ...(response?.result || {}),
+        submissionId: response?.submissionId,
+        certificateToken: response?.certificateToken
+      });
 
       // IMPORTANT:
       // Quiz completion always opens Results,
@@ -476,10 +490,18 @@ export default function Protection() {
         result={result}
         score={result?.correct ?? 0}
         total={result?.total ?? generalCards.length}
+        certificateToken={result?.certificateToken}
         onHome={home}
         onCertificate={() => {
-          window.location.hash = `#/certificate?lang=${lang}`;
-          setPage('certificate');
+          const route = result?.certificateToken
+            ? 'certificate-claim'
+            : 'certificate';
+          window.location.hash = `#/${route}?lang=${lang}`;
+          setPage(
+            result?.certificateToken
+              ? 'certificateClaim'
+              : 'certificate'
+          );
           scrollTop();
         }}
       />
@@ -493,6 +515,16 @@ export default function Protection() {
   if (page === 'certificate') {
     return (
       <Certificate
+        lang={lang}
+        onHome={home}
+        journey="protection"
+      />
+    );
+  }
+
+  if (page === 'certificateClaim') {
+    return (
+      <CertificateClaim
         lang={lang}
         onHome={home}
       />

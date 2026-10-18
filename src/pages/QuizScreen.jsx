@@ -150,21 +150,9 @@ export default function QuizScreen({
 
   const hasFeedbackVideo = Boolean(feedbackVideo);
 
-  const canContinue =
-
-    hasSelected &&
-
-    phase === 'feedback' &&
-
-    (
-
-      !hasFeedbackVideo ||
-
-      videoFailed ||
-
-      feedbackFinished
-
-    );
+  // Selecting an answer immediately unlocks the next action. Feedback video
+  // playback continues independently and must not block the participant.
+  const canContinue = hasSelected && phase === 'feedback';
 
   // =====================================
 
@@ -448,8 +436,6 @@ export default function QuizScreen({
 
             autoplay
 
-            muted
-
             controls
 
             onEnded={() => {
@@ -524,11 +510,7 @@ export default function QuizScreen({
 
           : (isArabic ? 'السؤال التالي' : 'Next Question')}
 
-        {isArabic
-
-          ? <ArrowLeft size={22} />
-
-          : <ArrowRight size={22} />}
+        <img className="navigation-arrow" src={media('/images/Navigation Arrow.svg')} alt="" aria-hidden="true" />
 
       </button>
 
@@ -566,7 +548,7 @@ export default function QuizScreen({
                 <VimeoVideo key={`${roleCard.id}-${lang}-${roleVideo}`}
                   url={roleVideo}
                   title={localized(roleCard, 'card_title', lang)}
-                  autoplay muted controls onError={() => setVideoFailed(true)} />
+                  autoplay controls onError={() => setVideoFailed(true)} />
               ) : (
                 <div className="himaya-role-video-placeholder">
                   {isArabic ? 'الفيديو غير متاح' : 'Video unavailable'}
@@ -895,7 +877,7 @@ export default function QuizScreen({
 
               {isArabic ? 'عرض النتائج' : 'View Results'}
 
-              {isArabic ? <ArrowLeft size={22} /> : <ArrowRight size={22} />}
+              <img className="navigation-arrow" src={media('/images/Navigation Arrow.svg')} alt="" aria-hidden="true" />
 
             </button>
 
@@ -919,11 +901,7 @@ export default function QuizScreen({
 
             {isArabic ? 'عرض النتائج' : 'View Results'}
 
-            {isArabic
-
-              ? <ArrowLeft size={22} />
-
-              : <ArrowRight size={22} />}
+            <img className="navigation-arrow" src={media('/images/Navigation Arrow.svg')} alt="" aria-hidden="true" />
 
           </button>
 
