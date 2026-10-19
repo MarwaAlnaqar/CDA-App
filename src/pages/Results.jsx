@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, Download, Home } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Home } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Shell from '../components/Shell.jsx';
 import config from '../data/appData.json';
@@ -24,7 +24,8 @@ export default function Results({ lang, result, certificateToken, onHome, onCert
  if (showSupport) {
   return <Shell lang={lang}><main className="results-main results-support" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
    <div className="results-video-wrap journey-final-video">
-    <video className="results-video" src={media(config.media?.[`video_${lang}`])} playsInline controls preload="metadata" />
+    <video className="results-video" src={media(config.media?.[`video_${lang}`])} autoPlay playsInline loop controls preload="auto"
+      onCanPlay={event => event.currentTarget.play().catch(() => {})} />
    </div>
    <Section title={ui('need_protection', 'title', lang)}>
     <p className="section-intro">{ui('need_protection', 'description', lang)}</p>
@@ -44,12 +45,16 @@ export default function Results({ lang, result, certificateToken, onHome, onCert
 
  return <Shell lang={lang}><main className="results-main results-overview" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
   <div className="results-video-wrap">
-   <video className="results-video" src={media(resultsVideo)} playsInline loop controls />
+   <video className="results-video" src={media(resultsVideo)} autoPlay playsInline loop controls preload="auto"
+    onCanPlay={event => event.currentTarget.play().catch(() => {})} />
   </div>
   <Section title={ui('results', 'title', lang)}>
    <div className="result-columns">
     <div className="qr-column"><strong>{ui('results', 'save_certificate', lang)}</strong><QRCodeSVG value={certificateUrl} size={180} />
-     <button className="download-button" onClick={onCertificate}>{ui('results', 'certificate', lang)} <Download size={16} /></button></div>
+     <a className="mobile-certificate-button" href={certificateUrl}>
+      {lang === 'ar' ? 'تحميل الشهادة' : 'Download Certificate'}
+     </a>
+    </div>
     <div className="score-column"><p>{scoreMessage}</p><div className="score-line"><span className="score-bubble">{score}</span><strong>{ui('results', 'out_of', lang)}</strong><span className="score-bubble">{total}</span><strong>{ui('results', 'questions_label', lang)}</strong></div></div>
    </div>
   </Section>

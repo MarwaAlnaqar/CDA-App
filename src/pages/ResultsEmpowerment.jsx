@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Download, Home } from 'lucide-react';
+import React, { useState } from 'react';
+import { Home } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 import Shell from '../components/Shell.jsx';
@@ -46,6 +46,7 @@ export default function ResultsEmpowerment({
   onCertificate
 }) {
   const isArabic = lang === 'ar';
+  const [showDetails, setShowDetails] = useState(false);
 
   const strategic = empowerment.strategic_role;
   const results = empowerment.results;
@@ -59,24 +60,8 @@ export default function ResultsEmpowerment({
     ? `${window.location.origin}${window.location.pathname}#/certificate-claim?token=${encodeURIComponent(certificateToken)}&lang=${lang}`
     : `${window.location.origin}${window.location.pathname}#/certificate?lang=${lang}`;
 
-  return (
-    <Shell lang={lang}>
-      <main
-        className="results-main empowerment-results"
-        dir={isArabic ? 'rtl' : 'ltr'}
-      >
-        <div className="results-video-wrap journey-final-video">
-          <video className="results-video" src={media(finalVideo)} playsInline controls preload="metadata" />
-        </div>
-
-        {/* ==================================
-            STRATEGIC ROLE
-        ================================== */}
-
-        <Section
-          title={t(strategic, 'title', lang)}
-          className="empowerment-strategic-section"
-        >
+  const strategicSection = (
+    <Section title={t(strategic, 'title', lang)} className="empowerment-strategic-section">
           <div className="empowerment-strategic-content">
 
             <h3 className="empowerment-subtitle">
@@ -131,16 +116,11 @@ export default function ResultsEmpowerment({
             </div>
 
           </div>
-        </Section>
+    </Section>
+  );
 
-        {/* ==================================
-            RESULTS
-        ================================== */}
-
-        <Section
-          title={t(results, 'title', lang)}
-          className="empowerment-score-section"
-        >
+  const resultsSection = (
+    <Section title={t(results, 'title', lang)} className="empowerment-score-section">
           <div className="empowerment-result-columns">
 
             <div className="empowerment-qr-column">
@@ -154,14 +134,10 @@ export default function ResultsEmpowerment({
                 marginSize={0}
               />
 
-              <button
-                type="button"
-                className="empowerment-certificate-link"
-                onClick={onCertificate}
-              >
-                {t(results, 'certificate', lang)}
-                <Download size={16} />
-              </button>
+              <a className="mobile-certificate-button" href={certificateUrl}>
+                {isArabic ? 'تحميل الشهادة' : 'Download Certificate'}
+              </a>
+
             </div>
 
             <div className="empowerment-score-column">
@@ -209,16 +185,11 @@ export default function ResultsEmpowerment({
             </div>
 
           </div>
-        </Section>
+    </Section>
+  );
 
-        {/* ==================================
-            HOTLINE
-        ================================== */}
-
-        <Section
-          title={t(hotline, 'title', lang)}
-          className="empowerment-hotline-section"
-        >
+  const hotlineSection = (
+    <Section title={t(hotline, 'title', lang)} className="empowerment-hotline-section">
           <div className="empowerment-hotline-columns">
 
             <div className="empowerment-hotline-qr">
@@ -256,12 +227,37 @@ export default function ResultsEmpowerment({
             </div>
 
           </div>
-        </Section>
+    </Section>
+  );
 
-        {/* ==================================
-            HOME BUTTON
-        ================================== */}
-
+  return (
+    <Shell lang={lang}>
+      <main className="results-main empowerment-results" dir={isArabic ? 'rtl' : 'ltr'}>
+        {!showDetails && (
+          <div className="results-video-wrap journey-final-video">
+            <video className="results-video" src={media(finalVideo)} autoPlay playsInline loop controls preload="auto"
+              onCanPlay={event => event.currentTarget.play().catch(() => {})} />
+          </div>
+        )}
+        {showDetails ? (
+          <>
+            {strategicSection}
+            {hotlineSection}
+          </>
+        ) : (
+          resultsSection
+        )}
+        {!showDetails && (
+          <button
+            type="button"
+            className="orange-button next-button results-next-button"
+            onClick={() => setShowDetails(true)}
+          >
+            {isArabic ? 'التالي' : 'Next'}
+            <img className="navigation-arrow" src={media('/images/Navigation Arrow.svg')} alt="" />
+          </button>
+        )}
+        {showDetails && (
         <button
           type="button"
           className="orange-button home-button empowerment-home-button"
@@ -270,6 +266,7 @@ export default function ResultsEmpowerment({
           {t(empowerment.navigation, 'home', lang)}
           <Home size={20} />
         </button>
+        )}
 
       </main>
     </Shell>

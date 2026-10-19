@@ -12,6 +12,7 @@ import QuizAdvocacyScreen from './pages/QuizAdvocacyScreen.jsx';
 import Results from './pages/ResultsEmpowerment.jsx';
 import Certificate from './pages/Certificate.jsx';
 import CertificateClaim from './pages/CertificateClaim.jsx';
+import empowermentConfig from './data/empowerment.json';
 
 import {
   getEmpowermentCards,
@@ -328,6 +329,7 @@ export default function Empowerment() {
         onLanguage={start}
         busy={busy}
         error={error}
+        journeyConfig={empowermentConfig}
       />
     );
   }

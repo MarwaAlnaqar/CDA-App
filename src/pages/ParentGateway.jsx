@@ -41,7 +41,6 @@ export default function ParentGateway({
     }
 
     return <VimeoVideo
-      key={`${card.id}-${lang}-${videoUrl}`}
       url={videoUrl}
       title={localized(card, 'card_title', lang) || 'Himaya video'}
       autoplay

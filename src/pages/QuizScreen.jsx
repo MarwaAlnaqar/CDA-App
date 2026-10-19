@@ -77,8 +77,6 @@ export default function QuizScreen({
 
   const [imageFailed, setImageFailed] = useState(false);
 
-  const [feedbackFinished, setFeedbackFinished] = useState(false);
-
   const [completed, setCompleted] = useState(false);
 
   const isArabic = lang === 'ar';
@@ -90,7 +88,16 @@ export default function QuizScreen({
 
   const card = cards[currentIndex];
 
-  const selectedId = card ? answers[card.id] : undefined;
+  const answerKey = item => item
+    ? `${item.category || mode}:${item.id}`
+    : '';
+
+  const selectedFor = item => {
+    if (!item) return undefined;
+    return answers[answerKey(item)] ?? answers[item.id];
+  };
+
+  const selectedId = selectedFor(card);
 
   const hasSelected =
 
@@ -140,15 +147,21 @@ export default function QuizScreen({
 
         : '';
 
-  const videoUrl =
+  const parentFinalVideo = isParent && currentIndex === cards.length - 1 && phase === 'feedback'
+
+    ? `/videos/ProtectionVideos/Final_line_${isArabic ? 'ar' : 'en'}.mp4`
+
+    : '';
+
+  const videoUrl = parentFinalVideo || (
 
     phase === 'feedback'
 
       ? (feedbackVideo || (isParent ? questionVideo : ''))
 
-      : questionVideo;
+      : questionVideo
 
-  const hasFeedbackVideo = Boolean(feedbackVideo);
+  );
 
   // Selecting an answer immediately unlocks the next action. Feedback video
   // playback continues independently and must not block the participant.
@@ -163,8 +176,6 @@ export default function QuizScreen({
   useEffect(() => {
 
     setVideoFailed(false);
-
-    setFeedbackFinished(false);
 
   }, [videoUrl, card?.id, lang]);
 
@@ -191,8 +202,6 @@ export default function QuizScreen({
       setVideoFailed(false);
 
       setImageFailed(false);
-
-      setFeedbackFinished(false);
 
       if (!isParent) {
 
@@ -264,13 +273,12 @@ export default function QuizScreen({
 
     if (hasSelected) return;
 
-    onChoose(card.id, answerId);
+    onChoose(card.id, answerId, card.category || mode);
 
     setPhase('feedback');
 
     setVideoFailed(false);
 
-    setFeedbackFinished(false);
 
   };
 
@@ -282,7 +290,7 @@ export default function QuizScreen({
 
   const renderChoices = (question, active) => {
 
-    const selected = answers[question.id];
+    const selected = selectedFor(question);
 
     const answered =
 
@@ -428,8 +436,6 @@ export default function QuizScreen({
 
           <VimeoVideo
 
-            key={`${card.id}-${phase}-${lang}-${videoUrl}`}
-
             url={videoUrl}
 
             title={localized(card, 'card_title', lang)}
@@ -437,16 +443,13 @@ export default function QuizScreen({
             autoplay
 
             controls
+            placeholderSrc={isArabic ? '/images/arabic_placeholder.png' : '/images/english_placeholder.png'}
 
-            onEnded={() => {
+            preloadUrls={[correctVideo, wrongVideo]}
 
-              if (phase === 'feedback') {
-
-                setFeedbackFinished(true);
-
-              }
-
-            }}
+            loadingLabel={isArabic
+              ? (phase === 'feedback' ? 'جاري تحميل فيديو الإجابة...' : 'جاري تحميل فيديو السؤال...')
+              : (phase === 'feedback' ? 'Loading answer video...' : 'Loading question video...')}
 
             onError={() => {
 
@@ -522,7 +525,7 @@ export default function QuizScreen({
   // App.jsx may continue passing mode="general"; category="role" takes priority.
   if (isRole && cards.length) {
     const roleCard = cards.find(item => item.category === 'role') || cards[0];
-    const roleSelected = answers[roleCard.id];
+    const roleSelected = selectedFor(roleCard);
     const roleHasSelected = roleSelected !== undefined && roleSelected !== null;
     const roleImage = roleCard[`card_text_image_url_${lang}`] ||
       roleCard.card_text_image_url || roleCard.card_image_url || '';
@@ -545,10 +548,12 @@ export default function QuizScreen({
             </div>
             <div className="himaya-role-video">
               {roleVideo && !videoFailed ? (
-                <VimeoVideo key={`${roleCard.id}-${lang}-${roleVideo}`}
+                <VimeoVideo
                   url={roleVideo}
                   title={localized(roleCard, 'card_title', lang)}
-                  autoplay controls onError={() => setVideoFailed(true)} />
+                  autoplay controls
+                  placeholderSrc={isArabic ? '/images/arabic_placeholder.png' : '/images/english_placeholder.png'}
+                  onError={() => setVideoFailed(true)} />
               ) : (
                 <div className="himaya-role-video-placeholder">
                   {isArabic ? 'الفيديو غير متاح' : 'Video unavailable'}
@@ -567,7 +572,7 @@ export default function QuizScreen({
                 <button key={option.id} type="button"
                   className={`himaya-role-option ${chosen ? 'is-selected' : ''}`}
                   aria-pressed={chosen}
-                  onClick={() => onChoose?.(roleCard.id, option.id)}>
+                  onClick={() => onChoose?.(roleCard.id, option.id, roleCard.category || mode)}>
                   <span className="himaya-role-number">{index + 1}</span>
                   <span className="himaya-role-option-text" dir={direction}>
                     {localized(option, 'title', lang)}
@@ -579,6 +584,7 @@ export default function QuizScreen({
           <button type="button" className="orange-button himaya-role-start"
             disabled={!roleHasSelected} onClick={() => onComplete?.()}>
             {isArabic ? 'ابدأ الرحلة' : 'Start Journey'}
+            <img className="navigation-arrow" src={media('/images/Navigation Arrow.svg')} alt="" aria-hidden="true" />
           </button>
         </main>
       </Shell>
@@ -759,7 +765,7 @@ export default function QuizScreen({
 
                   const future = index > currentIndex;
 
-                  const value = answers[question.id];
+                  const value = selectedFor(question);
 
                   const answered = value !== undefined && value !== null;
 
@@ -862,6 +868,14 @@ export default function QuizScreen({
               </p>
 
             </div>
+
+            {hasSelected &&
+              phase === 'feedback' &&
+              localized(card, 'card_explanation', lang) && (
+                <div className="explanation himaya-parent-explanation" dir={direction}>
+                  {localized(card, 'card_explanation', lang)}
+                </div>
+              )}
 
             <button
 

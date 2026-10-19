@@ -16,9 +16,13 @@ export default function Certificate({ lang, onHome, certificate, journey = 'prot
  const url = `${window.location.href.split('#')[0]}#/certificate?lang=${lang}`;
  const certificateRef = useRef(null);
  const [isDownloading, setIsDownloading] = useState(false);
- const copy = journeyConfig.certificate_copy?.participation;
- const certificateHeading = copy?.[`title_${lang}`] || (lang === 'ar' ? '\u0634\u0643\u0631\u0627\u064b' : 'Thank You!');
- const certificateMessage = copy?.[`description_${lang}`] || '';
+  const copy = journeyConfig.certificate_copy?.participation;
+  const certificateHeading = lang === 'ar' ? 'شهادة مشاركة' : 'Certificate of Participation';
+  const certificateMessage = copy?.[`description_${lang}`] || '';
+  const certificateParagraphs = certificateMessage
+    .split(/\n\s*\n/)
+    .map(paragraph => paragraph.trim())
+    .filter(Boolean);
 
  const downloadPersonalized = async () => {
   if (!certificateRef.current || isDownloading) return;
@@ -33,17 +37,18 @@ export default function Certificate({ lang, onHome, certificate, journey = 'prot
     });
    }
    const canvas = await Promise.race([
-    html2canvas(certificateRef.current, { scale: 1, useCORS: true, imageTimeout: 5000, logging: false, backgroundColor: '#fff' }),
+    html2canvas(certificateRef.current, { scale: 3, useCORS: true, imageTimeout: 10000, logging: false, backgroundColor: '#fff' }),
     new Promise((_, reject) => setTimeout(() => reject(new Error('Certificate rendering timed out')), 15000))
    ]);
-   const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-   const margin = 10;
-   const maxWidth = 210 - margin * 2;
-   const maxHeight = 297 - margin * 2;
-   const ratio = Math.min(maxWidth / canvas.width, maxHeight / canvas.height);
-   const width = canvas.width * ratio;
-   const height = canvas.height * ratio;
-   pdf.addImage(canvas.toDataURL('image/jpeg', 0.9), 'JPEG', (210 - width) / 2, (297 - height) / 2, width, height);
+   const pdfWidth = canvas.width;
+   const pdfHeight = canvas.height;
+   const pdf = new jsPDF({
+    orientation: pdfWidth >= pdfHeight ? 'landscape' : 'portrait',
+    unit: 'px',
+    format: [pdfWidth, pdfHeight],
+    compress: true
+   });
+   pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, pdfWidth, pdfHeight);
    pdf.save(`himaya-certificate-${certificate.participantName}.pdf`);
   } catch (error) {
    console.error('Certificate download failed:', error);
@@ -56,13 +61,17 @@ export default function Certificate({ lang, onHome, certificate, journey = 'prot
  if (certificate?.participantName) {
   return <Shell lang={lang}><main className="certificate-main" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
    <div className="certificate-card">
-    <h2>{ui('results', 'certificate', lang)}</h2>
+    <h2>{certificateHeading}</h2>
     <div className="personalized-certificate" ref={certificateRef}>
      <img src={media(image)} alt="" />
      <div className="personalized-certificate-copy">
       <div className="personalized-certificate-type">{certificateHeading}</div>
       <div className="personalized-certificate-name">{certificate.participantName}</div>
-      <div className="personalized-certificate-message">{certificateMessage}</div>
+       <div className="personalized-certificate-message">
+        {certificateParagraphs.map((paragraph, index) => (
+         <p key={`${lang}-${index}`}>{paragraph}</p>
+        ))}
+       </div>
      </div>
     </div>
     <button className="download-button" onClick={downloadPersonalized} disabled={isDownloading} aria-busy={isDownloading}><Download size={18} />{isDownloading ? (lang === 'ar' ? 'جارٍ تجهيز الشهادة...' : 'Preparing certificate...') : ui('results', 'certificate', lang)}</button>

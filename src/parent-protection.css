@@ -4,7 +4,7 @@
 .himaya-parent-page .himaya-parent-video .himaya-video-container { width:395px; max-width:100%; height:701px; aspect-ratio:71/126; overflow:hidden; }
 .himaya-parent-page .himaya-parent-video iframe,
 .himaya-parent-page .himaya-parent-video video { display:block; width:100%; height:100%; }
-.himaya-parent-page .himaya-parent-card { box-sizing:border-box; position:relative; width:981px; max-width:100%; min-height:644px; margin:50px auto 0; padding:68px 36px 32px; background:#fff; color:#502600; border-radius:36px; box-shadow:0 12px 18px #0002; text-align:start; }
+.himaya-parent-page .himaya-parent-card { box-sizing:border-box; position:relative; width:981px; max-width:100%; min-height:644px; margin:25px auto 0; padding:68px 36px 32px; background:#fff; color:#502600; border-radius:36px; box-shadow:0 12px 18px #0002; text-align:start; }
 .himaya-parent-page .himaya-parent-card-title { position:absolute; top:-25px; left:50%; transform:translateX(-50%); margin:0; padding:12px 30px; max-width:100%; background:#fff; color:#502600; border-radius:28px 28px 0 0; font-size:24px; font-weight:700; text-align:center; white-space:normal; }
 .himaya-parent-page .himaya-parent-rows { display:grid; gap:18px; }
 .himaya-parent-page .himaya-parent-row { display:grid; grid-template-columns:44px minmax(0,1fr) 160px; align-items:center; gap:18px; min-height:66px; transition:opacity .2s ease; }
@@ -45,7 +45,7 @@
 }
 @media(max-width:520px) {
  .himaya-parent-page .himaya-parent-video .himaya-video-container { width:100%; height:auto; aspect-ratio:71/126; }
- .himaya-parent-page .himaya-parent-card { border-radius:25px; padding:55px 12px 24px; }
+ .himaya-parent-page .himaya-parent-card { border-radius:25px; margin-top:20px; padding:55px 12px 24px; }
  .himaya-parent-page .himaya-parent-card-title { font-size:32px; font-weight:700; padding:10px 14px; width:max-content; max-width:90%; }
  .himaya-parent-page .himaya-parent-rows { gap:16px; }
  .himaya-parent-page .himaya-parent-row { grid-template-columns:30px minmax(0,1fr) 94px; gap:7px; }
@@ -138,6 +138,7 @@
   display: block;
 }
 
+
 /* General answer options — Arabic */
 
 .himaya-general-page[dir="rtl"] .answer-option {
@@ -208,7 +209,7 @@
 
 .himaya-general-page[dir="rtl"] .explanation {
   color: #502600;
-  text-align: right;
+  text-align: center;
   font-family: "GE SS Two", sans-serif;
   font-size: 20px;
   font-style: normal;
@@ -220,7 +221,7 @@
 
 .himaya-general-page[dir="ltr"] .explanation {
   color: #502600;
-  text-align: left;
+  text-align: center;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 18px;
   font-style: normal;

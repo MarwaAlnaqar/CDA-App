@@ -45,6 +45,11 @@
   align-items: stretch;
 }
 
+/* Give every results section title a more generous, readable title area. */
+.results-main .floating-title {
+  padding: 14px 42px 10px;
+}
+
 .scenario-photo,
 .scenario-media .video-holder {
   width: 100%;
@@ -356,16 +361,21 @@ html[lang="ar"] button, .journey-screen[lang="ar"] button {
 
 .personalized-certificate-copy {
   position: absolute;
-  inset: 23% 3% 19%;
+  inset: 20% 4% 4%;
+  transform: translateY(30px);
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 7px;
-  padding: 2% 4% 3%;
-  background: rgba(255, 255, 255, .94);
+  justify-content: flex-start;
+  gap: 0;
+  padding: 2% 1% 0;
+  background: transparent;
   color: #111;
   text-align: center;
+  container-type: inline-size;
 }
 
 .personalized-certificate > img {
@@ -376,10 +386,7 @@ html[lang="ar"] button, .journey-screen[lang="ar"] button {
 
 .personalized-certificate-type,
 .personalized-certificate-name {
-  position: absolute;
-  left: 50%;
-  width: 90%;
-  transform: translateX(-50%);
+  width: 100%;
   text-align: center;
   color: #222;
   font-weight: 800;
@@ -388,43 +395,54 @@ html[lang="ar"] button, .journey-screen[lang="ar"] button {
 }
 
 .personalized-certificate-type {
-  top: 52%;
-  font-size: clamp(16px, 3vw, 25px);
+  color: #5e742e;
+  font-size: clamp(17px, 4.3cqw, 32px);
+  line-height: 1.25;
+  white-space: nowrap;
+  margin-bottom: 3%;
 }
 
 .personalized-certificate-name {
-  position: static;
-  transform: none;
-  font-size: clamp(22px, 4.5vw, 40px);
-}
-
-.personalized-certificate-type {
-  position: static;
-  transform: none;
-  font-size: clamp(16px, 3vw, 25px);
+  color: #111;
+  font-size: clamp(19px, 5.2cqw, 42px);
+  line-height: 1.25;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: visible;
+  margin-bottom: 4%;
 }
 
 .personalized-certificate-message {
-  width: 94%;
-  max-width: 94%;
+  width: 100%;
+  max-width: 100%;
   color: #000;
   text-align: center;
   font-family: "GE SS Two", sans-serif;
-  font-size: 16px;
+  font-size: clamp(12px, 2.4cqw, 18px);
   font-style: normal;
   font-weight: 500;
   line-height: 1.5;
-  white-space: pre-line;
-  overflow-wrap: normal;
+  overflow: visible;
   word-break: normal;
+}
+
+.personalized-certificate-message p {
+  margin: 0;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.personalized-certificate-message p + p {
+  margin-top: clamp(7px, 1.6cqw, 16px);
 }
 
 .certificate-main[dir="rtl"] .personalized-certificate-message {
   direction: rtl;
-  width: 98%;
-  max-width: 98%;
-  font-size: 14px;
-  line-height: 1.75;
+  width: 100%;
+  max-width: 100%;
+  font-size: clamp(12px, 2.25cqw, 17px);
+  line-height: 1.35;
   letter-spacing: 0;
   word-spacing: 0;
 }
@@ -435,6 +453,28 @@ html[lang="ar"] button, .journey-screen[lang="ar"] button {
   max-width: none !important;
   object-fit: contain;
   flex: 0 0 auto;
+}
+
+.blue-screen .brand-header-restart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.blue-screen .brand-header-restart:hover {
+  opacity: .92;
+}
+
+.blue-screen .brand-header-restart:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 8px;
+  border-radius: 12px;
 }
 
 @media (max-width: 700px) {

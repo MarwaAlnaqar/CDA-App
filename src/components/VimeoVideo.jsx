@@ -3,13 +3,11 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from 'react';
-
 import Player from '@vimeo/player';
 import { media } from '../utils.js';
 
-// Get the video URL based on selected language.
 export function getCardVideo(card, type = 'question', lang = 'ar') {
   if (!card) return '';
 
@@ -18,32 +16,37 @@ export function getCardVideo(card, type = 'question', lang = 'ar') {
   const fields = {
     question: `card_video_url_${language}`,
     correct: `card_video_correct_answer_url_${language}`,
-    wrong: `card_video_wrong_answer_url_${language}`
+    wrong: `card_video_wrong_answer_url_${language}`,
   };
 
   return card[fields[type]] || '';
 }
 
-// Convert a Vimeo link to an embeddable Vimeo player URL.
-export function getVimeoEmbedUrl(url) {
-  if (!url || typeof url !== 'string') return '';
+const normalizeVideoUrl = (value) =>
+  String(value || '').trim().replace(/^['"]|['"]$/g, '');
+
+const isVimeoUrl = (value) => {
+  const normalized = normalizeVideoUrl(value);
+  if (!normalized) return false;
 
   try {
-    const parsed = new URL(url.trim());
+    const host = new URL(normalized).hostname.toLowerCase();
+    return host === 'vimeo.com' || host.endsWith('.vimeo.com');
+  } catch {
+    return false;
+  }
+};
 
-    const host = parsed.hostname.toLowerCase();
+export function getVimeoEmbedUrl(url, options = {}) {
+  const normalized = normalizeVideoUrl(url);
 
-    if (
-      host !== 'vimeo.com' &&
-      host !== 'www.vimeo.com' &&
-      host !== 'player.vimeo.com'
-    ) {
-      return '';
-    }
+  if (!normalized || !isVimeoUrl(normalized)) return '';
 
+  try {
+    const parsed = new URL(normalized);
     const segments = parsed.pathname.split('/').filter(Boolean);
 
-    const videoIndex = segments.findIndex(segment =>
+    const videoIndex = segments.findIndex((segment) =>
       /^\d+$/.test(segment)
     );
 
@@ -51,17 +54,11 @@ export function getVimeoEmbedUrl(url) {
 
     const videoId = segments[videoIndex];
 
-    // Vimeo unlisted videos may contain a privacy hash.
-    const nextSegment = segments[videoIndex + 1];
-
     const privacyHash =
       parsed.searchParams.get('h') ||
-      (
-        nextSegment &&
-        /^[a-f0-9]+$/i.test(nextSegment)
-          ? nextSegment
-          : ''
-      );
+      (/^[a-f0-9]+$/i.test(segments[videoIndex + 1] || '')
+        ? segments[videoIndex + 1]
+        : '');
 
     const embed = new URL(
       `https://player.vimeo.com/video/${videoId}`
@@ -71,20 +68,24 @@ export function getVimeoEmbedUrl(url) {
       embed.searchParams.set('h', privacyHash);
     }
 
-    embed.searchParams.set('autoplay', '1');
-    embed.searchParams.set('muted', '0');
+    embed.searchParams.set(
+      'autoplay',
+      options.autoplay === false ? '0' : '1'
+    );
+    embed.searchParams.set('muted', options.muted ? '1' : '0');
     embed.searchParams.set('playsinline', '1');
-    embed.searchParams.set('controls', '0');
+    embed.searchParams.set(
+      'controls',
+      options.controls === false ? '0' : '1'
+    );
+    embed.searchParams.set('loop', options.loop ? '1' : '0');
     embed.searchParams.set('dnt', '1');
 
     return embed.toString();
-  } catch (error) {
-    console.error('Invalid Vimeo URL:', error);
+  } catch {
     return '';
   }
 }
-
-const isDirectVideoUrl = url => /\.(mp4|webm|ogg)(?:[?#].*)?$/i.test(String(url || '').trim());
 
 export default function VimeoVideo({
   url,
@@ -93,172 +94,217 @@ export default function VimeoVideo({
   onError,
   autoplay = true,
   muted = false,
-  controls = false,
+  controls = true,
+  loadingLabel = 'Loading video...',
   className = '',
-  fallbackSrc = ''
+  fallbackSrc = '',
+  placeholderSrc = '',
 }) {
   const iframeRef = useRef(null);
+  const videoRef = useRef(null);
   const playerRef = useRef(null);
-  const onEndedRef = useRef(onEnded);
-  const onErrorRef = useRef(onError);
+  const callbacksRef = useRef({ onEnded, onError });
 
-  const [failed, setFailed] = useState(false);
   const [ready, setReady] = useState(false);
+  const [videoStarted, setVideoStarted] = useState(false);
+  const [localReady, setLocalReady] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [showPlayButton, setShowPlayButton] = useState(false);
 
-  const embedUrl = useMemo(() => {
-    if (isDirectVideoUrl(url)) return '';
-    const result = getVimeoEmbedUrl(url);
+  const normalizedUrl = useMemo(
+    () => normalizeVideoUrl(url),
+    [url]
+  );
 
-    if (!result) return '';
+  const isVimeo = isVimeoUrl(normalizedUrl);
 
-    const parsed = new URL(result);
+  const directVideoUrl = useMemo(
+    () =>
+      normalizedUrl && !isVimeo
+        ? media(normalizedUrl)
+        : '',
+    [normalizedUrl, isVimeo]
+  );
 
-    parsed.searchParams.set(
-      'autoplay',
-      autoplay ? '1' : '0'
-    );
+  const fallbackVideoUrl = useMemo(
+    () => (fallbackSrc ? media(fallbackSrc) : ''),
+    [fallbackSrc]
+  );
 
-    parsed.searchParams.set(
-      'muted',
-      muted ? '1' : '0'
-    );
+  const placeholderImage = useMemo(
+    () => (placeholderSrc ? media(placeholderSrc) : ''),
+    [placeholderSrc]
+  );
 
-    parsed.searchParams.set(
-      'controls',
-      controls ? '1' : '0'
-    );
+  const embedUrl = useMemo(
+    () =>
+      getVimeoEmbedUrl(normalizedUrl, {
+        autoplay,
+        muted,
+        controls,
+        loop: !onEnded,
+      }),
+    [normalizedUrl, autoplay, muted, controls, onEnded]
+  );
 
-    return parsed.toString();
-  }, [url, autoplay, muted, controls]);
+  const localSource =
+    directVideoUrl ||
+    (!isVimeo || !embedUrl ? fallbackVideoUrl : '');
 
-  // Card videos may be Vimeo links or local files served from /public/videos.
-  // Keep Vimeo in the iframe player, but play direct MP4/WebM/Ogg files natively.
-  const directVideoUrl = useMemo(() => {
-    return isDirectVideoUrl(url) ? media(url) : '';
-  }, [url]);
+  const useVimeo = Boolean(isVimeo && embedUrl && !localSource);
+
+  const videoKey = useVimeo ? embedUrl : localSource;
 
   useEffect(() => {
-    onEndedRef.current = onEnded;
-    onErrorRef.current = onError;
+    callbacksRef.current = { onEnded, onError };
   }, [onEnded, onError]);
 
-  // Do not leave the participant on an indefinite Vimeo loading overlay.
-  // If Vimeo does not load within the timeout, the parent can show its
-  // normal unavailable/fallback state instead.
   useEffect(() => {
-    if (!embedUrl || ready) return undefined;
-
-    const timeout = window.setTimeout(() => {
-      setFailed(true);
-      onErrorRef.current?.(new Error('Vimeo video loading timed out'));
-    }, 10000);
-
-    return () => window.clearTimeout(timeout);
-  }, [embedUrl, ready]);
-
-  useEffect(() => {
-    setFailed(false);
     setReady(false);
+    setVideoStarted(false);
+    setLocalReady(false);
+    setFailed(false);
+    setShowPlayButton(false);
+  }, [videoKey]);
 
-    if (!embedUrl || !iframeRef.current) return;
+  useEffect(() => {
+    if (!useVimeo || !iframeRef.current) return;
 
-    let active = true;
-
+    let disposed = false;
     const player = new Player(iframeRef.current);
-
     playerRef.current = player;
 
     const handleEnded = () => {
-      if (active) {
-        onEndedRef.current?.();
+      if (!disposed) {
+        callbacksRef.current.onEnded?.();
       }
     };
 
-    const handleError = error => {
-      if (!active) return;
+    const handlePlaying = () => {
+      if (!disposed) setVideoStarted(true);
+    };
 
-      console.error('Vimeo Player Error:', error);
+    const handleError = (error) => {
+      if (disposed) return;
+
+      console.error('[Vimeo] Player error:', error);
 
       setFailed(true);
-      onErrorRef.current?.(error);
+      callbacksRef.current.onError?.(error);
     };
 
     player.on('ended', handleEnded);
+    player.on('playing', handlePlaying);
     player.on('error', handleError);
 
-    player
-      .ready()
-      .then(async () => {
-        if (!active) return;
+    const initialize = async () => {
+      try {
+        await player.ready();
+
+        if (disposed) return;
 
         setReady(true);
 
-        try {
-          await player.setVolume(muted ? 0 : 1);
+        if (!autoplay) return;
 
-          if (autoplay) {
-            await player.play();
+        try {
+          await player.play();
+
+          if (!disposed) {
+            setShowPlayButton(false);
           }
+
         } catch (error) {
-          // Browser autoplay restrictions may block playback.
-          // The user can start playback if controls are enabled.
-          console.warn('Vimeo autoplay:', error);
+          if (disposed) return;
+
+          console.warn(
+            '[Vimeo] Autoplay blocked or failed:',
+            error
+          );
+
+          setShowPlayButton(true);
+
         }
-      })
-      .catch(handleError);
+      } catch (error) {
+        if (disposed) return;
+
+        console.error(
+          '[Vimeo] Initialization failed:',
+          error
+        );
+
+        setFailed(true);
+        callbacksRef.current.onError?.(error);
+      }
+    };
+
+    void initialize();
 
     return () => {
-      active = false;
+      disposed = true;
 
       player.off('ended', handleEnded);
+      player.off('playing', handlePlaying);
       player.off('error', handleError);
 
       if (playerRef.current === player) {
         playerRef.current = null;
       }
+
+      // React owns the iframe element. Do not call destroy()
+      // here, which can remove it during cleanup.
     };
-  }, [embedUrl, autoplay, muted]);
+  }, [videoKey, useVimeo, autoplay]);
 
-  if ((!embedUrl || failed) && fallbackSrc) {
+  const handleManualPlay = async () => {
+    try {
+      const player = playerRef.current;
+      if (!player) return;
+
+      await player.play();
+      setShowPlayButton(false);
+    } catch (error) {
+      console.error('[Vimeo] Manual playback failed:', error);
+      callbacksRef.current.onError?.(error);
+    }
+  };
+
+  if (localSource) {
     return (
       <div className={`himaya-vimeo-wrapper ${className}`}>
+        {placeholderImage && (
+          <img
+            className={`himaya-video-loading-placeholder ${localReady ? 'is-hidden' : ''}`}
+            src={placeholderImage}
+            alt=""
+            aria-hidden="true"
+          />
+        )}
         <video
+          key={localSource}
+          ref={videoRef}
           className="himaya-video-fallback"
-          src={fallbackSrc}
-          autoPlay
-          muted={muted}
-          loop
-          playsInline
-          controls={controls}
-          aria-label={title}
-        />
-      </div>
-    );
-  }
-
-  if (directVideoUrl && !failed) {
-    return (
-      <div className={`himaya-vimeo-wrapper ${className}`}>
-        <video
-          className="himaya-video-fallback"
-          src={directVideoUrl}
+          src={localSource}
           autoPlay={autoplay}
           muted={muted}
-          loop={!onEnded}
-          playsInline
           controls={controls}
+          loop={!onEnded}
+          preload="auto"
+          playsInline
+          style={{ opacity: placeholderImage && !localReady ? 0 : 1 }}
           aria-label={title}
-          onEnded={() => onEndedRef.current?.()}
+          onCanPlay={() => setLocalReady(true)}
+          onEnded={() => callbacksRef.current.onEnded?.()}
           onError={(error) => {
-            setFailed(true);
-            onErrorRef.current?.(error);
+            console.error('[Video] Local playback error:', error);
+            callbacksRef.current.onError?.(error);
           }}
         />
       </div>
     );
   }
 
-  if (!embedUrl || failed) {
+  if (!useVimeo || failed) {
     return (
       <div className={`himaya-video-placeholder ${className}`}>
         <span>Video unavailable</span>
@@ -267,31 +313,52 @@ export default function VimeoVideo({
   }
 
   return (
-    <div className={`himaya-vimeo-wrapper ${className}`}>
+    <div
+      className={`himaya-vimeo-wrapper ${className}`}
+      style={{ position: 'relative' }}
+    >
       <iframe
-        ref={iframeRef}
         key={embedUrl}
+        ref={iframeRef}
         src={embedUrl}
         title={title}
-        allow="autoplay; fullscreen; picture-in-picture"
+        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         allowFullScreen
         referrerPolicy="strict-origin-when-cross-origin"
-        onLoad={() => setReady(true)}
-        onError={() => {
-          setFailed(true);
-          onErrorRef.current?.(new Error('Vimeo iframe failed to load'));
-        }}
+        loading="eager"
         style={{
           width: '100%',
           height: '100%',
           border: 0,
-          display: 'block'
+          display: 'block',
         }}
       />
 
-      {!ready && (
-        <div className="himaya-vimeo-loading">
-          Loading video...
+      {placeholderImage ? (
+        <img
+          className={`himaya-video-loading-placeholder ${videoStarted ? 'is-hidden' : ''}`}
+          src={placeholderImage}
+          alt=""
+          aria-hidden="true"
+        />
+      ) : !videoStarted && (
+        <div
+          className="himaya-vimeo-loading"
+          aria-live="polite"
+        >
+          {loadingLabel}
+        </div>
+      )}
+
+      {ready && showPlayButton && (
+        <div className="himaya-vimeo-play-overlay">
+          <button
+            type="button"
+            className="himaya-vimeo-play-button"
+            onClick={handleManualPlay}
+          >
+            ▶ Play Video
+          </button>
         </div>
       )}
     </div>

@@ -86,15 +86,26 @@ console.log(name);
 
       <div className="screen-content journey-content">
         <header className="brand-header" dir="ltr">
-          <img
-            src={getPublicUrl(config.media.governmentLogo)}
-            alt="Government of Dubai"
-          />
+          <button
+            type="button"
+            className="brand-header-restart"
+            aria-label="Restart journey and return to language selection"
+            title="Restart journey"
+            onClick={() => {
+              window.location.hash = '';
+              window.location.reload();
+            }}
+          >
+            <img
+              src={getPublicUrl(config.media.governmentLogo)}
+              alt="Government of Dubai"
+            />
 
-          <img
-            src={getPublicUrl(config.media.cdaLogo)}
-            alt="Community Development Authority"
-          />
+            <img
+              src={getPublicUrl(config.media.cdaLogo)}
+              alt="Community Development Authority"
+            />
+          </button>
         </header>
 
         {children}

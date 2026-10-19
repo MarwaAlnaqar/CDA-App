@@ -12,6 +12,7 @@ import QuizAdvocacyScreen from './pages/QuizAdvocacyScreen.jsx';
 import Results from './pages/ResultsAdvocacy.jsx';
 import Certificate from './pages/Certificate.jsx';
 import CertificateClaim from './pages/CertificateClaim.jsx';
+import advocacyConfig from './data/advocacy.json';
 
 import {
   getAdvocacyCards,
@@ -328,6 +329,7 @@ export default function Advocacy() {
         onLanguage={start}
         busy={busy}
         error={error}
+        journeyConfig={advocacyConfig}
       />
     );
   }

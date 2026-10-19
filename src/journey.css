@@ -87,7 +87,7 @@ body,
   margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 30px;
   height: auto;
   justify-content: flex-start;
   align-items: center;
@@ -521,6 +521,15 @@ body,
   padding-bottom: 70px;
 }
 
+/* Keep the result cards visually close together on every journey. */
+.results-main {
+  gap: 18px;
+}
+
+.results-main .result-section {
+  margin-bottom: 12px;
+}
+
 .himaya-certificate-image {
   display: block;
   width: 100%;
@@ -600,15 +609,24 @@ body,
   position: relative;
   width: 100%;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
   overflow: hidden;
   background: #201b18;
   border-radius: 30px;
   clip-path: inset(0 round 30px);
 }
 
+.himaya-vimeo-player-host {
+  width: 100%;
+  height: 100%;
+}
+
 .himaya-vimeo-wrapper iframe {
   width: 100%;
   height: 100%;
+  transform-origin: center !important;
+  transform: translate(-0%, -5%) scale(1.3) !important;
   border: none;
   border-radius: 30px;
   overflow: hidden;
@@ -623,8 +641,36 @@ body,
   align-items: center;
   justify-content: center;
   color: #fff;
-  background: #201b18;
+  background: rgba(32, 27, 24, 0.72);
+  backdrop-filter: blur(2px);
   pointer-events: none;
+}
+
+.himaya-video-loading-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 320ms ease;
+}
+
+.himaya-video-loading-placeholder.is-hidden {
+  opacity: 0;
+}
+
+.himaya-video-play-button {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  z-index: 3;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
 .himaya-video-container {
@@ -669,7 +715,7 @@ html[lang="ar"] button,
 }
 
 .advocacy-results .advocacy-authority-section {
-  margin-top: 45px;
+  margin-top: 20px;
 }
 
 .advocacy-results .advocacy-authority-content {
@@ -721,6 +767,10 @@ html[lang="ar"] button,
   color: #512709;
 }
 
+.empowerment-results .results-video-wrap {
+  height: 710px;
+}
+
 .empowerment-results .result-section {
   margin-bottom: 32px;
 }
@@ -732,6 +782,7 @@ html[lang="ar"] button,
 
 .empowerment-subtitle {
   margin: 0 0 12px;
+  padding: 10px 24px;
   font-size: 19px;
   font-weight: 800;
   text-align: center;
@@ -805,13 +856,13 @@ html[lang="ar"] button,
   grid-template-columns: minmax(0, 38fr) minmax(0, 62fr);
   align-items: center;
   padding: 20px 24px;
-  gap: 8px;
+  gap: 18px;
 }
 
 .empowerment-qr-column {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 8px;
 }
 
@@ -829,8 +880,31 @@ html[lang="ar"] button,
   padding: 0;
 }
 
+.mobile-certificate-button {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .mobile-certificate-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 900px;
+    min-height: 46px;
+    padding: 10px 18px;
+    border-radius: 24px;
+    background: #ff7200;
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+}
+
 .empowerment-score-column {
-  text-align: center;
+  text-align: unset;
 }
 
 .empowerment-score-intro {
@@ -841,7 +915,7 @@ html[lang="ar"] button,
 
 .empowerment-score-line {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
@@ -873,7 +947,7 @@ html[lang="ar"] button,
 
 .empowerment-hotline-qr {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .empowerment-hotline-copy {
@@ -925,6 +999,7 @@ html[lang="ar"] button,
   object-fit: contain;
   background: #000;
   border: 0;
+  transition: opacity 320ms ease;
 }
 
 /* Existing responsive rules: (max-width: 768px) */
@@ -1123,6 +1198,7 @@ html[lang="ar"] button,
 .results-main { width: 100%; max-width: 100%; min-width: 0; }
 .results-main .result-section, .results-main .qr-column, .results-main .score-column, .results-main .hotline-copy { min-width: 0; }
 .results-main img { max-width: 100%; }
+.results-support .result-section + .result-section { margin-top: 28px; }
 
 .results-overview {
   align-items: center;
@@ -1133,7 +1209,7 @@ html[lang="ar"] button,
   height: 780px;
   margin: 0 auto;
   overflow: hidden;
-  border-radius: 26px;
+  border-radius: 30px;
   background: #111;
 }
 
@@ -1142,11 +1218,16 @@ html[lang="ar"] button,
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 30px;
 }
 
 .results-overview .result-section {
   width: min(100%, 850px);
   margin: 0 auto;
+}
+
+.results-main .result-columns {
+  gap: 16px;
 }
 
 .results-next-button {
@@ -1161,13 +1242,13 @@ html[lang="ar"] button,
   .results-main .section-intro { font-size: 18px; line-height: 1.7; }
   .results-main .protection-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
   .results-main .protection-step { min-width: 0; padding: 20px; }
-  .results-main .result-columns, .results-main .hotline-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: center; }
+  .results-main .result-columns, .results-main .hotline-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: center; }
   .results-main .qr-column svg { max-width: 100%; height: auto; }
 }
 @media (max-width: 768px) {
   .results-main { padding: 20px 12px 50px; }
   .results-main .result-section { width: 100%; margin-bottom: 32px; }
-  .results-main .floating-title { font-size: 23px; line-height: 1.4; padding: 12px 18px; text-align: center; white-space: normal; }
+  .results-main .floating-title { font-size: 23px; line-height: 1.4; padding: 16px 30px 12px; text-align: center; white-space: normal; }
   .results-main .section-intro { font-size: 16px; line-height: 1.7; text-align: center; margin: 15px 0 22px; }
   .results-main .protection-grid { grid-template-columns: minmax(0, 1fr); gap: 15px; width: 100%; }
   .results-main .protection-step { width: 100%; min-width: 0; padding: 20px 16px; border-radius: 20px; text-align: center; }
@@ -1194,7 +1275,7 @@ html[lang="ar"] button,
 @media (max-width: 480px) {
   .results-main { padding: 15px 5px 40px; }
   .results-main .result-section { margin-bottom: 28px; }
-  .results-main .floating-title { font-size: 20px; padding: 12px; line-height: 1.5; }
+  .results-main .floating-title { font-size: 20px; padding: 14px 24px 10px; line-height: 1.5; }
   .results-main .section-intro { font-size: 14px; }
   .results-main .protection-step { padding: 18px 14px; border-radius: 18px; }
   .results-main .protection-step h3 { font-size: 17px; }
@@ -1270,7 +1351,7 @@ html[lang="ar"] button,
     width: 100%;
     max-width: none;
     padding: 12px 10px 18px;
-    gap: 20px;
+    gap: 50px;
     justify-content: flex-start;
   }
 
@@ -1306,11 +1387,23 @@ html[lang="ar"] button,
     width: 100%;
   }
 
+  .results-main .result-section {
+    width: 80%;
+  }
+
   .results-main .floating-title {
     top: -20px;
     min-width: 250px;
-    padding: 7px 18px 0;
+    padding: 14px 40px 10px;
     font-size: 20px;
+    text-align: center;
+  }
+
+  .results-support .result-section:first-of-type .floating-title {
+    min-width: 340px;
+    padding: 14px 42px 10px;
+    top: -50px;
+    z-index: 20;
   }
 
   .results-main .section-intro {
@@ -1418,6 +1511,7 @@ html[lang="ar"] button,
 
   .empowerment-results .empowerment-subtitle {
     margin-bottom: 7px;
+    padding: 8px 14px;
     font-size: 14px;
   }
 
@@ -1470,6 +1564,10 @@ html[lang="ar"] button,
     gap: 12px;
   }
 
+  .empowerment-results .empowerment-result-columns {
+    gap: 12px;
+  }
+
   .empowerment-results .empowerment-qr-column,
   .empowerment-results .empowerment-hotline-qr {
     gap: 5px;
@@ -1512,4 +1610,18 @@ html[lang="ar"] button,
     font-size: 10px;
     line-height: 1.25;
   }
+}
+.results-main .result-section {
+  text-align: initial;
+}
+
+.results-main .score-line {
+  justify-content: flex-start;
+}
+
+/* Keep the results layout centered while aligning its children consistently. */
+.results-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Home, Download } from 'lucide-react';
+import React, { useState } from 'react';
+import { Home } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 import Shell from '../components/Shell.jsx';
@@ -46,6 +46,7 @@ export default function ResultsAdvocacy({
   onCertificate
 }) {
   const isArabic = lang === 'ar';
+  const [showAuthority, setShowAuthority] = useState(false);
 
   const score = result?.correct ?? 0;
   const total = result?.total ?? 0;
@@ -59,23 +60,8 @@ export default function ResultsAdvocacy({
     ? `${window.location.origin}${window.location.pathname}#/certificate-claim?token=${encodeURIComponent(certificateToken)}&lang=${lang}`
     : `${window.location.origin}${window.location.pathname}#/certificate?lang=${lang}`;
 
-  return (
-    <Shell lang={lang}>
-      <main
-        className="results-main advocacy-results"
-        dir={isArabic ? 'rtl' : 'ltr'}
-      >
-        <div className="results-video-wrap journey-final-video">
-          <video className="results-video" src={media(finalVideo)} playsInline controls preload="metadata" />
-        </div>
-        {/* =====================================
-            RESULTS
-        ===================================== */}
-
-        <Section
-          title={t(content, 'title', lang)}
-          className="advocacy-score-section"
-        >
+  const resultsSection = (
+    <Section title={t(content, 'title', lang)} className="advocacy-score-section">
           <div className="result-columns">
 
             {/* CERTIFICATE QR */}
@@ -94,14 +80,10 @@ export default function ResultsAdvocacy({
                 size={180}
               />
 
-              <button
-                type="button"
-                className="download-button"
-                onClick={onCertificate}
-              >
-                {t(content, 'certificate', lang)}
-                <Download size={16} />
-              </button>
+              <a className="mobile-certificate-button" href={certificateUrl}>
+                {isArabic ? 'تحميل الشهادة' : 'Download Certificate'}
+              </a>
+
             </div>
 
             {/* SCORE */}
@@ -148,16 +130,11 @@ export default function ResultsAdvocacy({
             </div>
 
           </div>
-        </Section>
+    </Section>
+  );
 
-        {/* =====================================
-            ROLE OF THE AUTHORITY
-        ===================================== */}
-
-        <Section
-          title={t(authority, 'title', lang)}
-          className="advocacy-authority-section"
-        >
+  const authoritySection = (
+    <Section title={t(authority, 'title', lang)} className="advocacy-authority-section">
           <div className="advocacy-authority-content">
 
             <p className="advocacy-authority-intro">
@@ -219,12 +196,30 @@ export default function ResultsAdvocacy({
             </p>
 
           </div>
-        </Section>
+    </Section>
+  );
 
-        {/* =====================================
-            HOME BUTTON
-        ===================================== */}
-
+  return (
+    <Shell lang={lang}>
+      <main className="results-main advocacy-results" dir={isArabic ? 'rtl' : 'ltr'}>
+        {!showAuthority && (
+          <div className="results-video-wrap journey-final-video">
+            <video className="results-video" src={media(finalVideo)} autoPlay playsInline loop controls preload="auto"
+              onCanPlay={event => event.currentTarget.play().catch(() => {})} />
+          </div>
+        )}
+        {showAuthority ? authoritySection : resultsSection}
+        {!showAuthority && (
+          <button
+            type="button"
+            className="orange-button next-button results-next-button"
+            onClick={() => setShowAuthority(true)}
+          >
+            {isArabic ? 'التالي' : 'Next'}
+            <img className="navigation-arrow" src={media('/images/Navigation Arrow.svg')} alt="" />
+          </button>
+        )}
+        {showAuthority && (
         <button
           type="button"
           className="orange-button home-button"
@@ -238,6 +233,7 @@ export default function ResultsAdvocacy({
 
           <Home size={20} />
         </button>
+        )}
 
       </main>
     </Shell>

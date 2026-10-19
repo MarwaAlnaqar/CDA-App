@@ -5,14 +5,14 @@
   "subtitle_ar": "اختبار توعوي مصور عن حماية أصحاب الهمم",
   "media": {
     "background": "/videos/background.mp4",
-    "intro": "/videos/intro.mp4",
+    "intro": "/videos/protection_intro.mp4",
     "introAlternate": "/images/intro-alternate.png",
     "governmentLogo": "/images/government-of-dubai.png",
     "cdaLogo": "/images/cda-logo.png",
     "handIcon": "/images/Himaya-icon.png",
     "bg":"/images/protection/protection_bg.mp4",
-    "video_ar": "/videos/protection/need_protection_ar.mp4",
-      "video_en": "/videos/protection/need_protection_en.mp4"
+    "video_ar": "/videos/ProtectionVideos/need_protection_ar.mp4",
+      "video_en": "/videos/ProtectionVideos/need_protection_en.mp4"
   },
   
     
@@ -40,10 +40,10 @@
       "description_ar": "\u0644\u0642\u062f \u0623\u0643\u0645\u0644\u062a \u0627\u062e\u062a\u0628\u0627\u0631 \u0627\u0644\u062d\u0645\u0627\u064a\u0629 \u0628\u0646\u062c\u0627\u062d.\n\u0645\u0639\u0631\u0641\u062a\u0643 \u0628\u062f\u0648\u0631 \u0627\u0644\u0645\u0647\u0627\u0631\u0627\u062a \u0648\u0627\u0644\u0628\u064a\u0626\u0627\u062a \u0627\u0644\u062f\u0627\u0645\u062c\u0629 \u062a\u0633\u0647\u0645 \u0641\u064a \u062a\u0639\u0632\u064a\u0632 \u0627\u0633\u062a\u0642\u0644\u0627\u0644\u064a\u0629 \u0623\u0635\u062d\u0627\u0628 \u0627\u0644\u0647\u0645\u0645 \u0648\u0645\u0634\u0627\u0631\u0643\u062a\u0647\u0645 \u0641\u064a \u0627\u0644\u0645\u062c\u062a\u0645\u0639."
     },
     "participation": {
-      "title_en": "Thank You!",
-      "title_ar": "\u0634\u0643\u0631\u0627\u064b",
-      "description_en": "Thank you for taking part in the Protection quiz.\nYour understanding of skills and inclusive environments helps strengthen the independence and community participation of People of Determination.",
-      "description_ar": "\u0634\u0643\u0631\u0627\u064b \u0644\u0645\u0634\u0627\u0631\u0643\u062a\u0643 \u0641\u064a \u0627\u062e\u062a\u0628\u0627\u0631 \u0627\u0644\u062d\u0645\u0627\u064a\u0629.\n\u0625\u0646 \u0641\u0647\u0645\u0643 \u0644\u0644\u0645\u0647\u0627\u0631\u0627\u062a \u0648\u0627\u0644\u0628\u064a\u0626\u0627\u062a \u0627\u0644\u062f\u0627\u0645\u062c\u0629 \u064a\u0633\u0647\u0645 \u0641\u064a \u062a\u0639\u0632\u064a\u0632 \u0627\u0633\u062a\u0642\u0644\u0627\u0644\u064a\u0629 \u0623\u0635\u062d\u0627\u0628 \u0627\u0644\u0647\u0645\u0645 \u0648\u0645\u0634\u0627\u0631\u0643\u062a\u0647\u0645 \u0627\u0644\u0641\u0627\u0639\u0644\u0629 \u0641\u064a \u0627\u0644\u0645\u062c\u062a\u0645\u0639."
+      "title_en": "Certificate of Participation",
+      "title_ar": "شهادة مشاركة",
+      "description_en": "Thank you for your participation!\n\nWe appreciate your commitment to learning and expanding your knowledge.\n\nThrough your knowledge, we contribute to building a more inclusive and empowered community.",
+      "description_ar": "شكراً لمشاركتك!\n\nنُقدّر حرصك على التعلم واكتساب المعرفة.\n\nبمعرفتك نُسهم في بناء مجتمع أكثر شمولاً وتمكيناً."
     }
   },
   "need_protection": {

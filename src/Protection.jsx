@@ -181,7 +181,7 @@ export default function Protection() {
   // SAVE ANSWER IN LOCAL STATE
   // =====================================
 
-  const choose = (questionId, answerId) => {
+  const choose = (questionId, answerId, category = 'general') => {
     if (
       questionId === undefined ||
       answerId === undefined ||
@@ -192,7 +192,7 @@ export default function Protection() {
 
     const updatedAnswers = {
       ...answersRef.current,
-      [questionId]: answerId
+      [`${category}:${questionId}`]: answerId
     };
 
     updateAnswers(updatedAnswers);
@@ -216,10 +216,16 @@ export default function Protection() {
           answerId !== null &&
           answerId !== ''
         )
-        .map(([questionId, answerId]) => ({
-          questionId: Number(questionId),
-          answerId: Number(answerId)
-        }));
+        .map(([key, answerId]) => {
+          const separator = key.indexOf(':');
+          const category = separator >= 0 ? key.slice(0, separator) : 'general';
+          const questionId = separator >= 0 ? key.slice(separator + 1) : key;
+          return {
+            questionId: Number(questionId),
+            answerId: Number(answerId),
+            category
+          };
+        });
 
       if (!payload.length) {
         throw new Error(
@@ -315,7 +321,7 @@ export default function Protection() {
 
     const updatedAnswers = {
       ...answersRef.current,
-      [parentGateway.id]: selectedOption.id
+      [`${parentGateway.category}:${parentGateway.id}`]: selectedOption.id
     };
 
     updateAnswers(updatedAnswers);

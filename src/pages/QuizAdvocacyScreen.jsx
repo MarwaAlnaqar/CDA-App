@@ -58,8 +58,6 @@ export default function QuizAdvocacyScreen({
 
   const [videoFailed, setVideoFailed] = useState(false);
   const [imageFailed, setImageFailed] = useState(false);
-  const [feedbackFinished, setFeedbackFinished] =
-    useState(false);
 
   const isArabic = lang === 'ar';
   const direction = isArabic ? 'rtl' : 'ltr';
@@ -91,7 +89,7 @@ export default function QuizAdvocacyScreen({
     card?.category === 'role';
 
   const generalCards = filteredCards.filter(
-    item => item.category === 'general'
+              item => item.category === 'general'
   );
 
   const generalIndex = generalCards.findIndex(
@@ -154,9 +152,7 @@ export default function QuizAdvocacyScreen({
       ? (feedbackVideo || questionVideo)
       : questionVideo;
 
-  const hasFeedbackVideo = Boolean(feedbackVideo);
-
-  // Do not make participants wait for feedback video playback to finish.
+  // The selected answer unlocks the action immediately; video playback is independent.
   const canContinue = hasSelected && phase === 'feedback';
 
   // =====================================
@@ -165,7 +161,6 @@ export default function QuizAdvocacyScreen({
 
   useEffect(() => {
     setVideoFailed(false);
-    setFeedbackFinished(false);
   }, [
     videoUrl,
     card?.id,
@@ -192,7 +187,6 @@ export default function QuizAdvocacyScreen({
       setPhase('question');
       setVideoFailed(false);
       setImageFailed(false);
-      setFeedbackFinished(false);
 
       window.scrollTo({
         top: 0,
@@ -215,7 +209,6 @@ export default function QuizAdvocacyScreen({
     if (!isRole) {
       setPhase('feedback');
       setVideoFailed(false);
-      setFeedbackFinished(false);
     }
   };
 
@@ -227,7 +220,6 @@ export default function QuizAdvocacyScreen({
     <div className="himaya-video-container">
       {videoUrl && !videoFailed ? (
         <VimeoVideo
-          key={`${card.id}-${phase}-${lang}-${videoUrl}`}
           url={videoUrl}
           title={localized(
             card,
@@ -236,14 +228,11 @@ export default function QuizAdvocacyScreen({
           )}
           autoplay
           controls
-          onEnded={() => {
-            if (
-              phase === 'feedback' &&
-              hasFeedbackVideo
-            ) {
-              setFeedbackFinished(true);
-            }
-          }}
+          placeholderSrc={isArabic ? '/images/arabic_placeholder.png' : '/images/english_placeholder.png'}
+          preloadUrls={[correctVideo, wrongVideo]}
+          loadingLabel={isArabic
+            ? (phase === 'feedback' ? 'جاري تحميل فيديو الإجابة...' : 'جاري تحميل فيديو السؤال...')
+            : (phase === 'feedback' ? 'Loading answer video...' : 'Loading question video...')}
           onError={() => {
             setVideoFailed(true);
           }}
@@ -372,14 +361,15 @@ const roleImage =
           >
             {(card.answers || []).map(
               (option, index) => {
+                const optionId = option.id ?? index + 1;
                 const chosen =
                   hasSelected &&
                   String(selectedId) ===
-                    String(option.id);
+                    String(optionId);
 
                 return (
                   <button
-                    key={option.id}
+                    key={optionId}
                     type="button"
                     className={[
                       'himaya-role-option',
@@ -389,7 +379,7 @@ const roleImage =
                     onClick={() =>
                       onChoose?.(
                         card.id,
-                        option.id
+                        optionId
                       )
                     }
                   >
@@ -424,6 +414,7 @@ const roleImage =
             {isArabic
               ? 'ابدأ الرحلة'
               : 'Start Journey'}
+            <img className="navigation-arrow" src={media('/images/Navigation Arrow.svg')} alt="" aria-hidden="true" />
           </button>
         </main>
       </Shell>
@@ -542,10 +533,11 @@ const roleImage =
         >
           {(card.answers || []).map(
             (option, index) => {
+              const optionId = option.id ?? index + 1;
               const chosen =
                 hasSelected &&
                 String(selectedId) ===
-                  String(option.id);
+                  String(optionId);
 
               const correct =
                 hasSelected &&
@@ -563,12 +555,12 @@ const roleImage =
 
               return (
                 <button
-                  key={option.id}
+                  key={optionId}
                   type="button"
                   disabled={hasSelected}
                   onClick={() =>
                     handleAnswer(
-                      option.id
+                      optionId
                     )
                   }
                   className={[

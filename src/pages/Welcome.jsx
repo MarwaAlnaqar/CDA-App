@@ -1,9 +1,10 @@
 import React from 'react';
 import Shell from '../components/Shell.jsx';
-import config from '../data/appData.json';
+import appConfig from '../data/appData.json';
 import { media } from '../utils.js';
 import VimeoVideo from '../components/VimeoVideo.jsx';
-export default function Welcome({onLanguage,busy,error}) {
+export default function Welcome({onLanguage,busy,error,journeyConfig = appConfig}) {
+ const introConfig = journeyConfig?.media?.intro ? journeyConfig : appConfig;
  return <Shell lang="ar">
     
   <main className="journey-welcome">
@@ -19,24 +20,22 @@ export default function Welcome({onLanguage,busy,error}) {
     </div>
     <div dir="ltr"><h2>{config.title_en}</h2><p>{config.subtitle_en}</p></div>
 </div> */}
-  {config.media.intro &&<VimeoVideo
+  {introConfig.media.intro &&<VimeoVideo
             className="journey-intro-media"
-            key={`intro`}
-            url={config.media.intro}
+            key={`intro-${introConfig.media.intro}`}
+            url={introConfig.media.intro}
             title='intro'
-            autoplay
+            autoplay={true}
+            muted={false}
             controls
-            fallbackSrc="/videos/intro.mp4"
-            onEnded={() => {
-            
-            }}
+            fallbackSrc={appConfig.media.intro}
           />
   // <video src={media(config.media.intro)} autoPlay muted loop playsInline/>
 
   }
-  <p className="journey-intro-caption" dir="rtl">
+  {/* <p className="journey-intro-caption" dir="rtl">
     فيديو بلغة الإشارة
-  </p>
+  </p> */}
   <div className="journey-languages">
      <button className="orange-button" disabled={busy} onClick={()=>onLanguage('ar')}>العربية</button>
     <button className="orange-button" disabled={busy} onClick={()=>onLanguage('en')}>ENGLISH</button>
